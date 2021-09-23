@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: code_box
+# key: box
+# --
+#+ATTR_LATEX: :options frame=single

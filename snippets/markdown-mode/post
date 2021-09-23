@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: post
+# key: post
+# --
+
+<div id="div-style">
+    <a href="$1"> ${1:$(titlecase-string (replace-regexp-in-string "^-" "" (underscore-to-space-string (rm-digits-string yas-text))))} </a>
+    <span style="color:gray"> - `(format-time-string "%d %B %Y")` </span>
+</div>

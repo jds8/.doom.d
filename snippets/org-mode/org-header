@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: org-header
+# key: h
+# --
+#+AUTHOR: Justice Sefas
+#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil
+
+#+LATEX_HEADER: \usepackage{amsfonts}
+#+LATEX_HEADER: \usepackage{physics}
+
+* $1
+
+** `(format-time-string "%d %B %Y")`
+
+$0

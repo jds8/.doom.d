@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: Create Python Pod
+# key: pod
+# --
+class $1:
+    def __init__(self, $2):
+        ${2:$(join "\n" (circumpend "        self." (split-string yas-text ", ")))}
+
+$0

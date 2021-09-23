@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: difference quotient
+# key: dh
+# --
+\dfrac{f(x+h) - f(x)}{h}

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Filters a dataframe so that every entry has
+#     : a column that matches a certain value
+# key: filter
+# --
+$1[$1[$2] == $3]
+$0

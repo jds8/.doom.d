@@ -1,0 +1,29 @@
+# -*- mode: snippet -*-
+# name: dataclass
+# key: dataclass
+# --
+
+from datetime import datetime
+import pandas as pd
+
+from covidops.data.$1.abstract_data_class import $2
+from covidops.data.columns import PrimaryKeyColumns
+
+
+class $3($2):
+
+    def __init__(self, data_date: datetime, begin_date: datetime = None, end_date: datetime = None):
+        super().__init__(data_date=data_date, begin_date=begin_date, end_date=end_date)
+        return
+
+    def _load(self):
+        self.data = self.dm.get_$4(self.data_date)  # type: pd.DataFrame
+        self.data[PrimaryKeyColumns.DATE] = pd.to_datetime(self.data[PrimaryKeyColumns.DATE],
+                                                           infer_datetime_format=True)
+
+        return self
+
+    @property
+    def def_join_key(self) -> str:
+        return ${3:$(name-to-prk yas-text)}
+$0

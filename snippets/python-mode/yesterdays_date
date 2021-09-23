@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: yesterday's date
+# key: yd
+# --
+(datetime.today() - timedelta(1)).date() $0

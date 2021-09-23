@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: bash_data_date
+# key: dd
+# --
+$(date -v -1d '+%Y%m%d')

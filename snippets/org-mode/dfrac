@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: dfrac
+# uuid:
+# key: dfr
+# --
+\dfrac{$1}{$2}$0

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Adds PrimaryKeyColumn key column
+# key: Pri
+# --
+PrimaryKeyColumns.$0

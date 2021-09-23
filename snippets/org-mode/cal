@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: cal
+# uuid:
+# key: cal
+# --
+\mathcal{$1}$0

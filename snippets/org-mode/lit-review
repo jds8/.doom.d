@@ -1,0 +1,25 @@
+# -*- mode: snippet -*-
+# name: lit-review
+# key: lit
+# --
+[[$1][arxiv paper]]
+
+** What's the problem?
+
+** Why is this interesting? / Why do we care?
+
+** What does this achieve?
+
+** Summary
+
+** What assumptions are made?
+
+** Strengths
+*** Good results
+
+*** Novel ideas
+
+** Weaknesses
+*** Bad results
+
+*** Areas for improvement/extension
