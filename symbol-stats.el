@@ -74,7 +74,7 @@
 (defun symbol-stats/full-term-is-entropy (ft) (symbol-stats/is-entropy (full-term-term ft)))
 
 ;; create integrals
-(defun symbol-stats/make-int (t1 var) (list 'int t (symbol-stats/symbol-append 'd var)))
+(defun symbol-stats/make-int (t1 var) (list 'int t1 (symbol-stats/symbol-append 'd var)))
 (defun symbol-stats/is-int (t1) (equal (car t1) 'int))
 (defun symbol-stats/full-term-is-int (ft) (symbol-stats/is-int (full-term-term ft)))
 (defun symbol-stats/integrand (t1) (cadr t1))
@@ -104,7 +104,7 @@
 (defun symbol-stats/any (v lst) (seq-reduce #'(lambda (truth-val p) (or (eq p v) truth-val)) lst nil))
 
 ;; marginalization
-(defun symbol-stats/marginalize (p var) (make-int (make-dist (car p) (list (car (cadr p)) var) (list (caddr p))) var))
+(defun symbol-stats/marginalize (p var) (symbol-stats/make-int (symbol-stats/make-dist (car p) (cons var (cadr p)) (list (caddr p))) var))
 (defun symbol-stats/can-marginalize (p var) (and (not (symbol-stats/any var (cadr p))) (not (symbol-stats/any var (caddr p))) ))
 (defun symbol-stats/can-marginalize-any (p vars) (mapcar #'(lambda (v) (symbol-stats/can-marginalize p v)) vars))
 (defun symbol-stats/try-marginalize-one (can-marg-vars vars p) (if (eq can-marg-vars nil) p
@@ -126,7 +126,7 @@
 
 ;; multiplcation by one
 (defun symbol-stats/mult-one (t1 p)
-  (cond ((is-int t1) (make-int (mult-one (integrand t1) p) (differential t1)))
+  (cond ((is-int t1) (make-int (mult-one (symbol-stats/integrand t1) p) (symbol-stats/differential t1)))
         (t t1)
   ))
 
@@ -149,13 +149,13 @@
 
 (setq data (symbol-stats/make-dist 'p (list 'x 'h) 'y))
 (symbol-stats/are-equal data (symbol-stats/denom (symbol-stats/divide data data)))
-(setq I (marginalize data 'z))
-(symbol-stats/is-dist (integrand I))
+(setq I (symbol-stats/marginalize data 'z))
+(symbol-stats/is-dist (symbol-stats/integrand I))
 (symbol-stats/make-expectation (symbol-stats/multiply data (symbol-stats/log data)) 'q)
 
-(integrand I)
-(differential I)
-(mult-one I (make-dist 'q 'z nil))
+(symbol-stats/integrand I)
+(symbol-stats/differential I)
+(symbol-stats/mult-one I (symbol-stats/make-dist 'q 'z nil))
 
 (setq pd (symbol-stats/make-dist 'p (list 'x) (list 'z)))
 (symbol-stats/try-marginalize pd (list 'y 'z))
