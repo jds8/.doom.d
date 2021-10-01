@@ -149,8 +149,8 @@
    (kmacro-lambda-form [?d ?d ?` ?m ?p ?$ ?m ?m] 0 "%d"))
 (evil-set-register ?m [?d ?d ?` ?m ?p ?$ ?m ?m])
 (fset 'wrap_fun
-   (kmacro-lambda-form [?y ?s ?i ?o ?\) ?i ?\C-r ?f escape] 0 "%d"))
-(global-set-key (kbd "M-p") '(wrap_fun))
+   (kmacro-lambda-form [?y ?s ?i ?o ?\) ?i ?\C-r ?. escape] 0 "%d"))
+(global-set-key (kbd "M-p") 'wrap_fun)
 
 
 ;; Keybindings
@@ -238,6 +238,11 @@
 (map! :leader
       :desc "Yank file name base"
       "f z" #'(lambda () (interactive) (let ((base (file-name-base buffer-file-name))) (progn (kill-new base) (message "%s" (concat "Copied base name to clipboard: " base))))))
+(map! :leader
+      :desc "Avy"
+      "j" '(lambda (&rest _)
+            (interactive)
+            (let ((current-prefix-arg t)) (evil-avy-goto-char-timer))))
 
 ;; Yapf on save
 (add-hook 'python-mode-hook 'yapf-mode)
