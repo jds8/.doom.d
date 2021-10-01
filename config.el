@@ -148,6 +148,10 @@
 (fset 'm_macro
    (kmacro-lambda-form [?d ?d ?` ?m ?p ?$ ?m ?m] 0 "%d"))
 (evil-set-register ?m [?d ?d ?` ?m ?p ?$ ?m ?m])
+(fset 'wrap_fun
+   (kmacro-lambda-form [?y ?s ?i ?o ?\) ?i ?\C-r ?f escape] 0 "%d"))
+(global-set-key (kbd "M-p") '(wrap_fun))
+
 
 ;; Keybindings
 (global-set-key (kbd "C-c <right>") 'next-buffer)
@@ -179,6 +183,9 @@
 (map! :leader
       :desc "Insert current date (%Y-%m-%d)"
       "i t" #'insert-current-time)
+(map! :leader
+      :desc "Insert digraph"
+      "i k" #'evil-insert-digraph)
 (map! :leader
       :desc "Dired of snippets"
       "s y" #'(lambda ()(interactive) (dired "~/.doom.d/snippets/")))

@@ -63,10 +63,11 @@
 (defun symbol-stats/full-term-is-log (ft) (symbol-stats/is-log (full-term-term ft)))
 
 ;; create distributions
-(defun symbol-stats/make-dist (p left right) (list (symbol-stats/symbol-append p 'dist) left right))
 (defun symbol-stats/is-dist (t1) (equal (symbol-stats/symbol-end (car t1)) 'dist))
 (defun symbol-stats/full-term-is-dist (ft) (symbol-stats/is-dist (full-term-term ft)))
 (defun symbol-stats/vars (t1) (cdr t1))
+(defun symbol-stats/get-dist (p) (if (equal (symbol-stats/symbol-end p) 'dist) p (symbol-stats/symbol-append p 'dist)))
+(defun symbol-stats/make-dist (p left right) (list (symbol-stats/get-dist p) left right))
 
 ;; create entropy
 (defun symbol-stats/entropy (v1 v2) (list 'H v1 v2))
@@ -74,8 +75,8 @@
 (defun symbol-stats/full-term-is-entropy (ft) (symbol-stats/is-entropy (full-term-term ft)))
 
 ;; create integrals
-(defun symbol-stats/make-int (t1 var) (list 'int t1 (symbol-stats/symbol-append 'd var)))
-(defun symbol-stats/is-int (t1) (equal (car t1) 'int))
+(defun symbol-stats/make-int (t1 var) (list '∫ t1 (symbol-stats/symbol-append 'd var)))
+(defun symbol-stats/is-int (t1) (equal (car t1) '∫))
 (defun symbol-stats/full-term-is-int (ft) (symbol-stats/is-int (full-term-term ft)))
 (defun symbol-stats/integrand (t1) (cadr t1))
 (defun symbol-stats/differential (t1) (symbol-stats/symbol-end (car (last t1))))
@@ -115,14 +116,18 @@
 
 ;; TODO if ft is (+ t1 t2) then want to return (+ (marginalize t1) t2) if (not (eq (marginalize t1) t1)) and (+ t1 (marginalize t2)) otherwise
 (defun symbol-stats/marginalize-full-term (ft)
-  (cond ((symbol-stats/full-term-is-add ft)
-         (let ((t1-marginalized (symbol-stats/marginalize-full-term (full-term-create :joint-vars (full-term-joint-vars ft) :term (cadr (full-term-term ft))))))
-           (if (not (eq t1-marginalized (cadr (full-term-term ft))))
-               (symbol-stats/add t1-marginalized (full-term-create :joint-vars (full-term-joint-vars ft) :term (caddr (full-term-term ft))))
-               (let ((t2-marginalized (symbol-stats/marginalize-full-term (full-term-create :joint-vars (full-term-joint-vars ft) :term (caddr (full-term-term ft))))))
-                 (symbol-stats/add t1-marginalized t2-marginalized))
+  (let ((p (full-term-term ft)) (vars (full-term-joint-vars ft)))
+      (cond ((symbol-stats/is-dist p) (symbol-stats/full-term-create vars p))
+            ((symbol-stats/is-log p) (symbol-stats/full-term-create vars (symbol-stats/log (symbol-stats/try-marginalize (cadr p) vars))))
+            ((symbol-stats/full-term-is-add ft)
+             (let ((t1-marginalized (symbol-stats/marginalize-full-term (symbol-stats/full-term-cadr ft))))
+               (if (not (eq t1-marginalized (cadr p)))
+                   (symbol-stats/add t1-marginalized (symbol-stats/full-term-caddr))
+                   (let ((t2-marginalized (symbol-stats/marginalize-full-term (symbol-stats/full-term-caddr ft))))
+                     (symbol-stats/add t1-marginalized t2-marginalized))
+                 )))
+            (t ft)
              )))
-         ))
 
 ;; multiplcation by one
 (defun symbol-stats/mult-one (t1 p)
@@ -136,16 +141,19 @@
 (cl-defstruct (full-term (:constructor full-term-create)
                          (:copier nil))
   joint-vars term)
-(defun symbol-stats/full-term-t1 (ft) (full-term-create :joint-vars (full-term-joint-vars ft) :term (cadr (full-term-term ft))))
-(defun symbol-stats/full-term-t2 (ft) (full-term-create :joint-vars (full-term-joint-vars ft) :term (caddr (full-term-term ft))))
+;; make full terms out of cadr and caddr of ft
+(defun symbol-stats/full-term-cadr (ft) (full-term-create :joint-vars (full-term-joint-vars ft) :term (cadr (full-term-term ft))))
+(defun symbol-stats/full-term-caddr (ft) (full-term-create :joint-vars (full-term-joint-vars ft) :term (caddr (full-term-term ft))))
+(defun symbol-stats/full-term-create (vars p) (full-term-create :joint-vars vars :term p))
 
 ;; examples
 (setq ft (full-term-create :joint-vars (list 'x 'z) :term (list 'log (symbol-stats/make-dist 'p (list 'x) nil))))
-(full-term-term ft)
+(cadr (full-term-term ft))
+(symbol-stats/marginalize-full-term ft)
 
 (setq ftt (full-term-create :joint-vars (list 'x 'z) :term (symbol-stats/add (symbol-stats/make-dist 'p (list 'x) nil) (symbol-stats/make-dist 'p (list 'y) nil))))
-(symbol-stats/full-term-t1 ftt)
-(symbol-stats/full-term-t2 ftt)
+(symbol-stats/full-term-cadr ftt)
+(symbol-stats/full-term-caddr ftt)
 
 (setq data (symbol-stats/make-dist 'p (list 'x 'h) 'y))
 (symbol-stats/are-equal data (symbol-stats/denom (symbol-stats/divide data data)))
