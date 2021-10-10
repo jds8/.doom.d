@@ -243,6 +243,14 @@
       "j" '(lambda (&rest _)
             (interactive)
             (let ((current-prefix-arg t)) (evil-avy-goto-char-timer))))
+(map! :leader
+      (:prefix ("k" . "Org-Noter"))
+      :desc "start session"
+      "k s" 'org-noter)
+(map! :leader
+      :desc "create skeleton"
+      "k k" 'org-noter-create-skeleton)
+
 
 ;; Yapf on save
 (add-hook 'python-mode-hook 'yapf-mode)
@@ -371,6 +379,7 @@
 ;; Use BibLaTex
 (setq bibtex-dialect 'biblatex)
 
+;; ivy-bibtex
 (autoload 'ivy-bibtex "ivy-bibtex" "" t)
 ;; ivy-bibtex requires ivy's `ivy--regex-ignore-order` regex builder, which
 ;; ignores the order of regexp tokens when searching for matching candidates.
@@ -383,14 +392,13 @@
 
 (setq bib-directory (concat (file-name-as-directory org-directory) "Bibliographies"))
 (setq bibtex-completion-bibliography (concat (file-name-as-directory bib-directory) "references.bib"))
-(setq bibtex-completion-library-path (concat (file-name-as-directory bib-directory) "bibtex-pdfs"))
-(setq bibtex-completion-notes-path (concat (file-name-as-directory bib-directory) "bibtex-notes"))
+(setq bibtex-completion-library-path `("/Users/MacMag/Zotero/storage/" ,(concat (file-name-as-directory bib-directory) "bibtex-pdfs")))
 (setq bibtex-completion-pdf-field "file")
 
-;; open pdf with system pdf viewer (works on mac)
-(setq bibtex-completion-pdf-open-function
-  (lambda (fpath)
-    (start-process "open" "*open*" "open" fpath)))
-
+;; org-ref
 (setq org-ref-completion-library 'org-ref-ivy-cite)
 (setq org-ref-default-bibliography (list bibtex-completion-bibliography))
+
+;; org-noter
+(setq research-directory (concat (file-name-as-directory notes-directory) "Research"))
+(setq org-noter-notes-search-path (list research-directory))
