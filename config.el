@@ -385,11 +385,12 @@
 (setq bibtex-completion-bibliography (concat (file-name-as-directory bib-directory) "references.bib"))
 (setq bibtex-completion-library-path (concat (file-name-as-directory bib-directory) "bibtex-pdfs"))
 (setq bibtex-completion-notes-path (concat (file-name-as-directory bib-directory) "bibtex-notes"))
+(setq bibtex-completion-pdf-field "file")
 
 ;; open pdf with system pdf viewer (works on mac)
-;; (setq bibtex-completion-pdf-open-function
-;;   (lambda (fpath)
-;;     (start-process "open" "*open*" "open" fpath)))
+(setq bibtex-completion-pdf-open-function
+  (lambda (fpath)
+    (start-process "open" "*open*" "open" fpath)))
 
-;; alternative
-(setq bibtex-completion-pdf-open-function 'org-ref-ivy-cite)
+(setq org-ref-completion-library 'org-ref-ivy-cite)
+(setq org-ref-default-bibliography (list bibtex-completion-bibliography))
