@@ -381,7 +381,7 @@
 (setq papers-directory (concat (file-name-as-directory org-directory) "Papers"))
 (setq bibtex-completion-library-path papers-directory)
 
-(setq bib-directory (concat (file-name-as-directory org-directory) "Bibliography"))
+(setq bib-directory (concat (file-name-as-directory org-directory) "Bibliographies"))
 (setq bibtex-completion-bibliography (concat (file-name-as-directory bib-directory) "references.bib"))
 (setq bibtex-completion-library-path (concat (file-name-as-directory bib-directory) "bibtex-pdfs"))
 (setq bibtex-completion-notes-path (concat (file-name-as-directory bib-directory) "bibtex-notes"))
