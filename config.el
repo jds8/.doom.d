@@ -367,3 +367,29 @@
 (map! :leader
       :desc "lively"
       "l" #'lively-macro)
+
+;; Use BibLaTex
+(setq bibtex-dialect 'biblatex)
+
+(autoload 'ivy-bibtex "ivy-bibtex" "" t)
+;; ivy-bibtex requires ivy's `ivy--regex-ignore-order` regex builder, which
+;; ignores the order of regexp tokens when searching for matching candidates.
+(setq ivy-re-builders-alist
+      '((ivy-bibtex . ivy--regex-ignore-order)
+        (t . ivy--regex-plus)))
+
+(setq papers-directory (concat (file-name-as-directory org-directory) "Papers"))
+(setq bibtex-completion-library-path papers-directory)
+
+(setq bib-directory (concat (file-name-as-directory org-directory) "Bibliography"))
+(setq bibtex-completion-bibliography (concat (file-name-as-directory bib-directory) "references.bib"))
+(setq bibtex-completion-library-path (concat (file-name-as-directory bib-directory) "bibtex-pdfs"))
+(setq bibtex-completion-notes-path (concat (file-name-as-directory bib-directory) "bibtex-notes"))
+
+;; open pdf with system pdf viewer (works on mac)
+;; (setq bibtex-completion-pdf-open-function
+;;   (lambda (fpath)
+;;     (start-process "open" "*open*" "open" fpath)))
+
+;; alternative
+(setq bibtex-completion-pdf-open-function 'org-ref-ivy-cite)
