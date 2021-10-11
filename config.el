@@ -163,6 +163,9 @@
 (global-set-key (kbd "C-x t x") 'tab-close)
 (global-set-key (kbd "C-x C-k") '(lambda ()(interactive) (kill-buffer nil)))
 (map! :leader
+      :desc "insert ref"
+      "n i" 'org-ref-helm-insert-cite-link)
+(map! :leader
       :desc "Yank relative filepath"
       "f Y" #'copy-relative-file-name)
 (map! :leader
@@ -250,6 +253,12 @@
 (map! :leader
       :desc "create skeleton"
       "k k" 'org-noter-create-skeleton)
+(map! :leader
+      :desc "create skeleton"
+      "k h" 'pdf-annot-add-highlight-markup-annotation)
+(map! :leader
+      :desc "create skeleton"
+      "k d" 'pdf-annot-delete)
 
 
 ;; Yapf on save
@@ -392,7 +401,7 @@
 
 (setq bib-directory (concat (file-name-as-directory org-directory) "Bibliographies"))
 (setq bibtex-completion-bibliography (concat (file-name-as-directory bib-directory) "references.bib"))
-(setq bibtex-completion-library-path `("/Users/MacMag/Zotero/storage/" ,(concat (file-name-as-directory bib-directory) "bibtex-pdfs")))
+(setq bibtex-completion-library-path `("/Users/MacMag/Zotero/storage/5EA58VE6" ,(concat (file-name-as-directory bib-directory) "bibtex-pdfs")))
 (setq bibtex-completion-pdf-field "file")
 
 ;; org-ref
