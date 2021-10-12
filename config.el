@@ -254,6 +254,9 @@
       :desc "create skeleton"
       "k k" 'org-noter-create-skeleton)
 (map! :leader
+      :desc "insert note"
+      "k i" 'org-noter-insert-note)
+(map! :leader
       :desc "create skeleton"
       "k h" 'pdf-annot-add-highlight-markup-annotation)
 (map! :leader
@@ -407,6 +410,7 @@
 ;; org-ref
 (setq org-ref-completion-library 'org-ref-ivy-cite)
 (setq org-ref-default-bibliography (list bibtex-completion-bibliography))
+(setq org-ref-default-cite-link org-ref-default-bibliography)
 
 ;; org-noter
 (setq research-directory (concat (file-name-as-directory notes-directory) "Research"))
