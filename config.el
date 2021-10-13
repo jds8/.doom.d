@@ -257,10 +257,10 @@
       :desc "insert note"
       "k i" 'org-noter-insert-note)
 (map! :leader
-      :desc "create skeleton"
+      :desc "add highlight"
       "k h" 'pdf-annot-add-highlight-markup-annotation)
 (map! :leader
-      :desc "create skeleton"
+      :desc "delete annotation"
       "k d" 'pdf-annot-delete)
 
 
