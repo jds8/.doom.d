@@ -265,7 +265,7 @@
 
 
 ;; Yapf on save
-(add-hook 'python-mode-hook 'yapf-mode)
+;; (add-hook 'python-mode-hook 'yapf-mode)
 
 ;; Julia hook
 (after! julia-mode
