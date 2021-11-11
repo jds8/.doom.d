@@ -313,7 +313,8 @@
                         "#+AUTHOR: Justice Sefas\n"
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
-                        "#+LATEX_HEADER: \\usepackage{physics}"))
+                        "#+LATEX_HEADER: \\usepackage{physics}"
+                        "#+LATEX_HEADER: \setlength{\parindent}{0pt}"))
          :unnarrowed t)
         ("r" "Research" plain
          "%?"
@@ -323,6 +324,7 @@
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
+                        "#+LATEX_HEADER: \setlength{\parindent}{0pt}"
                         "* Valuable Terminology\n\n"
                         "* Notes"))
          :unnarrowed t)
@@ -334,6 +336,7 @@
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
+                        "#+LATEX_HEADER: \setlength{\parindent}{0pt}"
                         "* Valuable Terminology\n\n"
                         "* Notes"))
          :unnarrowed t)
@@ -345,6 +348,7 @@
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
+                        "#+LATEX_HEADER: \setlength{\parindent}{0pt}"
                         "#+BEGIN_EXPORT html\n"
                         "---\n"
                         "layout: post\n"
