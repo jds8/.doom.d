@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: multinorm
+# key: multinorm
+# --
+dist.MultivariateNormal(torch.zeros(len(X)), torch.eye(len(X)))
