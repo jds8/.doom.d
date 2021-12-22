@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: hills
+# key: hills
+# --
+CONSECUTIVE {
+    WORKOUT { 9:00min/mi, 3mi, 0deg },
+    REPEAT { 7, CONSECUTIVE {
+        WORKOUT { 6:$1min/mi, $2mi, 5deg }, REST { 0.5min }, WORKOUT { 6:50min/mi, $3mi, -5deg }, REST { 1.5min }
+    } },
+    WORKOUT { 8:30min/mi, 4mi, 0deg }
+}
+$0

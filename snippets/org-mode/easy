@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: easy
+# key: easy
+# --
+WORKOUT { 8:00 min/mi, 8 mi, 0 deg }
+$0

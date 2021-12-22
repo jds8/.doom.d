@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: repeats
+# key: repeats
+# --
+
+CONSECUTIVE {
+    WORKOUT { 9:00min/mi, 3mi, 0deg },
+    REPEAT { $1, CONSECUTIVE {
+        WORKOUT { 6:$2min/mi, mi, 5deg }, REST { $3min }
+    } },
+    WORKOUT { 8:30min/mi, 3mi, 0deg }
+}
+$0
