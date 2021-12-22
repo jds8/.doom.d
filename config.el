@@ -25,7 +25,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-solarized-dark)
+(setq doom-theme 'doom-badger)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -314,7 +314,7 @@
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}"
-                        "#+LATEX_HEADER: \setlength{\parindent}{0pt}"))
+                        "#+LATEX_HEADER: \setlength{\parindent}{0pt}\n\n"))
          :unnarrowed t)
         ("r" "Research" plain
          "%?"
@@ -324,7 +324,7 @@
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
-                        "#+LATEX_HEADER: \setlength{\parindent}{0pt}"
+                        "#+LATEX_HEADER: \setlength{\parindent}{0pt}\n\n"
                         "* Valuable Terminology\n\n"
                         "* Notes"))
          :unnarrowed t)
@@ -336,9 +336,44 @@
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
-                        "#+LATEX_HEADER: \setlength{\parindent}{0pt}"
+                        "#+LATEX_HEADER: \setlength{\parindent}{0pt}\n\n"
                         "* Valuable Terminology\n\n"
                         "* Notes"))
+         :unnarrowed t)
+        ("n" "Running" plain
+         "%?"
+         :if-new (file+head "Running/%<%Y-%m-%d>-${slug}.org"
+               ,(concat "#+TITLE: ${title}\n"
+                        "#+AUTHOR: Justice Sefas\n"
+                        "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
+                        "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
+                        "#+LATEX_HEADER: \\usepackage{physics}\n\n"
+                        "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n"
+                        "* Today's Workout\n\n"
+                        "* Goals"))
+         :unnarrowed t)
+        ("b" "Beamer" plain
+         "%?"
+         :if-new (file+head "Beamer/%<%Y-%m-%d>-${slug}.org"
+               ,(concat "#+TITLE: ${title}\n"
+                        "#+AUTHOR: Justice Sefas\n"
+                        "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
+                        "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
+                        "#+LATEX_HEADER: \\usepackage{physics}\n\n"
+                        "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n\n"
+                        "#+KEYWORDS:\n"
+                        "#+LANGUAGE:  en\n"
+                        "#+OPTIONS:   H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t\n"
+                        "#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc\n"
+                        "#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:https://orgmode.org/org-info.js\n"
+                        "#+EXPORT_SELECT_TAGS: export\n"
+                        "#+EXPORT_EXCLUDE_TAGS: noexport\n"
+                        "#+HTML_LINK_UP:\n"
+                        "#+HTML_LINK_HOME:\n"
+                        "#+STARTUP: beamer\n"
+                        "#+LaTeX_CLASS: beamer\n"
+                        "#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)\n\n"
+                        "* ${title}\n"))
          :unnarrowed t)
          ("p" "Post" plain
          "%?"
@@ -348,7 +383,7 @@
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
-                        "#+LATEX_HEADER: \setlength{\parindent}{0pt}"
+                        "#+LATEX_HEADER: \setlength{\parindent}{0pt}\n\n"
                         "#+BEGIN_EXPORT html\n"
                         "---\n"
                         "layout: post\n"
