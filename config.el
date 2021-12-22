@@ -340,6 +340,41 @@
                         "* Valuable Terminology\n\n"
                         "* Notes"))
          :unnarrowed t)
+        ("n" "Running" plain
+         "%?"
+         :if-new (file+head "Running/%<%Y-%m-%d>-${slug}.org"
+               ,(concat "#+TITLE: ${title}\n"
+                        "#+AUTHOR: Justice Sefas\n"
+                        "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
+                        "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
+                        "#+LATEX_HEADER: \\usepackage{physics}\n\n"
+                        "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n"
+                        "* Today's Workout\n\n"
+                        "* Goals"))
+         :unnarrowed t)
+        ("b" "Beamer" plain
+         "%?"
+         :if-new (file+head "Beamer/%<%Y-%m-%d>-${slug}.org"
+               ,(concat "#+TITLE: ${title}\n"
+                        "#+AUTHOR: Justice Sefas\n"
+                        "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
+                        "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
+                        "#+LATEX_HEADER: \\usepackage{physics}\n\n"
+                        "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n\n"
+                        "#+KEYWORDS:\n"
+                        "#+LANGUAGE:  en\n"
+                        "#+OPTIONS:   H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t\n"
+                        "#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc\n"
+                        "#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:https://orgmode.org/org-info.js\n"
+                        "#+EXPORT_SELECT_TAGS: export\n"
+                        "#+EXPORT_EXCLUDE_TAGS: noexport\n"
+                        "#+HTML_LINK_UP:\n"
+                        "#+HTML_LINK_HOME:\n"
+                        "#+STARTUP: beamer\n"
+                        "#+LaTeX_CLASS: beamer\n"
+                        "#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)\n\n"
+                        "* ${title}\n"))
+         :unnarrowed t)
          ("p" "Post" plain
          "%?"
          :if-new (file+head "Research/%<%Y-%m-%d>-${slug}.org"
