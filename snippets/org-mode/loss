@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: loss
+# key: loss
+# --
+\mathcal{L}$0
