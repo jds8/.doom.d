@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: piecewise
+# key: pw
+# --
+\[ f(x) = \begin{cases}
+      $1 & $2 \\\
+      $3 & \text{otherwise}
+   \end{cases}
+\]
+$0
