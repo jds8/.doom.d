@@ -314,7 +314,8 @@
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}"
-                        "#+LATEX_HEADER: \setlength{\parindent}{0pt}\n\n"))
+                        "#+LATEX_HEADER: \\usepackage{bbm}"
+                        "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n\n"))
          :unnarrowed t)
         ("r" "Research" plain
          "%?"
@@ -324,7 +325,8 @@
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
-                        "#+LATEX_HEADER: \setlength{\parindent}{0pt}\n\n"
+                        "#+LATEX_HEADER: \\usepackage{bbm}\n\n"
+                        "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n\n"
                         "* Valuable Terminology\n\n"
                         "* Notes"))
          :unnarrowed t)
@@ -336,7 +338,8 @@
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
-                        "#+LATEX_HEADER: \setlength{\parindent}{0pt}\n\n"
+                        "#+LATEX_HEADER: \\usepackage{bbm}\n\n"
+                        "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n\n"
                         "* Valuable Terminology\n\n"
                         "* Notes"))
          :unnarrowed t)
@@ -348,6 +351,7 @@
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
+                        "#+LATEX_HEADER: \\usepackage{bbm}\n\n"
                         "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n"
                         "* Today's Workout\n\n"
                         "* Goals"))
@@ -371,10 +375,11 @@
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
+                        "#+LATEX_HEADER: \\usepackage{bbm}\n\n"
                         "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n\n"
                         "#+KEYWORDS:\n"
                         "#+LANGUAGE:  en\n"
-                        "#+OPTIONS:   H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t\n"
+                        "#+OPTIONS:   H:1 num:t toc:nil \\n:nil @:t ::t |:t ^:t -:t f:t *:t <:t\n"
                         "#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc\n"
                         "#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:https://orgmode.org/org-info.js\n"
                         "#+EXPORT_SELECT_TAGS: export\n"
@@ -394,7 +399,8 @@
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
-                        "#+LATEX_HEADER: \setlength{\parindent}{0pt}\n\n"
+                        "#+LATEX_HEADER: \\usepackage{bbm}\n\n"
+                        "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n\n"
                         "#+BEGIN_EXPORT html\n"
                         "---\n"
                         "layout: post\n"
