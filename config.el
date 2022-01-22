@@ -342,7 +342,7 @@
          :unnarrowed t)
         ("n" "Running" plain
          "%?"
-         :if-new (file+head "Running/%<%Y-%m-%d>-${slug}.org"
+         :if-new (file+head "../Running/%<%Y-%m-%d>-${slug}.org"
                ,(concat "#+TITLE: ${title}\n"
                         "#+AUTHOR: Justice Sefas\n"
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
@@ -351,6 +351,17 @@
                         "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n"
                         "* Today's Workout\n\n"
                         "* Goals"))
+         :unnarrowed t)
+        ("h" "History" plain
+         "%?"
+         :if-new (file+head "History/%<%Y-%m-%d>-${slug}.org"
+               ,(concat "#+TITLE: ${title}\n"
+                        "#+AUTHOR: Justice Sefas\n"
+                        "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
+                        "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
+                        "#+LATEX_HEADER: \\usepackage{physics}\n\n"
+                        "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n"
+                        "* Title\n"))
          :unnarrowed t)
         ("b" "Beamer" plain
          "%?"
@@ -400,7 +411,6 @@
          :if-new (file+head "%<%Y-%m-%d>.org" "#+TITLE: %<%Y-%m-%d>\n"))))
 (org-roam-setup)
 
-
 ; Deft note-taking
 (load! "my-deft")
 (setq deft-directory org-directory)
@@ -414,6 +424,7 @@
 ;;         (nospace . "-")
 ;;         (case-fn . downcase)))
 (advice-add 'deft-parse-title :around #'my-deft/parse-title-with-directory-prepended)
+
 
 ;; Don't make Projectile try to figure out project names
 (setq projectile-mode-line "Projectile")
