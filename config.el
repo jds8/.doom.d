@@ -162,12 +162,13 @@
 (global-set-key (kbd "C-x t r") 'tab-rename)
 (global-set-key (kbd "C-x t x") 'tab-close)
 (global-set-key (kbd "C-x C-k") '(lambda ()(interactive) (kill-buffer nil)))
+
+;; org ref
 (map! :leader
       :desc "insert ref"
       "n i" 'org-ref-helm-insert-cite-link)
-(map! :leader
-      :desc "Yank relative filepath"
-      "f Y" #'copy-relative-file-name)
+
+;; org export
 (map! :leader
       (:prefix ("e" . "export"))
       :desc "Export Org to LaTeX"
@@ -180,6 +181,8 @@
       (:prefix ("e" . "export"))
       :desc "Export Org to Posts"
       "e p" #'org-export-to-posts)
+
+;; dates
 (map! :leader
       :desc "Insert current date (%Y-%m-%d)"
       "i d" #'insert-current-date)
@@ -189,12 +192,8 @@
 (map! :leader
       :desc "Insert digraph"
       "i k" #'evil-insert-digraph)
-(map! :leader
-      :desc "Dired of snippets"
-      "s y" #'(lambda ()(interactive) (dired "~/.doom.d/snippets/")))
-(map! :leader
-      :desc "Dired of One Drive - UBC"
-      "d" #'(lambda ()(interactive) (dired "~/OneDrive - UBC")))
+
+;; Zettelkasten
 (map! :leader
       (:prefix ("z" . "Zettelkasten"))
       :desc "Org Roam Alias"
@@ -239,13 +238,29 @@
       :desc "Org Roam Find Journal"
       "z J" #'org-roam-dailies-find-date)
 (map! :leader
+      :desc "Org Mind Map"
+      "z m" #'org-mind-map-write)
+
+;; misc
+(map! :leader
       :desc "Yank file name base"
       "f z" #'(lambda () (interactive) (let ((base (file-name-base buffer-file-name))) (progn (kill-new base) (message "%s" (concat "Copied base name to clipboard: " base))))))
+(map! :leader
+      :desc "Yank relative filepath"
+      "f Y" #'copy-relative-file-name)
 (map! :leader
       :desc "Avy"
       "j" '(lambda (&rest _)
             (interactive)
             (let ((current-prefix-arg t)) (evil-avy-goto-char-timer))))
+(map! :leader
+      :desc "Dired of snippets"
+      "s y" #'(lambda ()(interactive) (dired "~/.doom.d/snippets/")))
+(map! :leader
+      :desc "Dired of One Drive - UBC"
+      "d" #'(lambda ()(interactive) (dired "~/OneDrive - UBC")))
+
+;; org noter
 (map! :leader
       (:prefix ("k" . "Org-Noter"))
       :desc "start session"
@@ -471,3 +486,12 @@
 ;; org-noter
 (setq research-directory (concat (file-name-as-directory notes-directory) "Research"))
 (setq org-noter-notes-search-path (list research-directory))
+
+;; org-mind-map
+(setq org-mind-map-engine "dot")       ; Default. Directed Graph
+;; (setq org-mind-map-engine "neato")  ; Undirected Spring Graph
+;; (setq org-mind-map-engine "twopi")  ; Radial Layout
+;; (setq org-mind-map-engine "fdp")    ; Undirected Spring Force-Directed
+;; (setq org-mind-map-engine "sfdp")   ; Multiscale version of fdp for the layout of large graphs
+;; (setq org-mind-map-engine "twopi")  ; Radial layouts
+;; (setq org-mind-map-engine "circo")  ; Circular Layout
