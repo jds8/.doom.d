@@ -2,9 +2,8 @@
 # name: lit-review
 # key: lit
 # --
-[[$1][arxiv paper]]
-
 ** What's the problem?
+$0
 
 ** Why is this interesting? / Why do we care?
 
