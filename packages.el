@@ -27,6 +27,13 @@
 (package! zotxt
   :recipe (:host github :repo "egh/zotxt-emacs"))
 
+(package! gitconfig-mode
+	  :recipe (:host github :repo "magit/git-modes"
+			 :files ("gitconfig-mode.el")))
+(package! gitignore-mode
+	  :recipe (:host github :repo "magit/git-modes"
+			 :files ("gitignore-mode.el")))
+
 (package! ivy-bibtex)
 (package! org-ref)
 (package! org-noter)
