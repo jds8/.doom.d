@@ -488,6 +488,7 @@
 (setq org-noter-notes-search-path (list research-directory))
 
 ;; org-mind-map
+(require 'ox-org)
 (setq org-mind-map-engine "dot")       ; Default. Directed Graph
 ;; (setq org-mind-map-engine "neato")  ; Undirected Spring Graph
 ;; (setq org-mind-map-engine "twopi")  ; Radial Layout
