@@ -162,6 +162,7 @@
 (global-set-key (kbd "C-x t r") 'tab-rename)
 (global-set-key (kbd "C-x t x") 'tab-close)
 (global-set-key (kbd "C-x C-k") '(lambda ()(interactive) (kill-buffer nil)))
+(global-set-key (kbd "C-l") 'org-latex-preview)
 
 ;; org ref
 (map! :leader
@@ -496,8 +497,6 @@
 ;; (setq org-mind-map-engine "sfdp")   ; Multiscale version of fdp for the layout of large graphs
 ;; (setq org-mind-map-engine "twopi")  ; Radial layouts
 ;; (setq org-mind-map-engine "circo")  ; Circular Layout
-;; Copyright (C) 2014 Matus Goljer <matus.goljer@gmail.com>
-;; Package-requires: ((dash "2.5.0"))
 
 ;; org-inline-image
 (defun org-inline-image--get-current-image ()
@@ -526,3 +525,6 @@
 (setq org-inline-image--get-current-image (byte-compile 'org-inline-image--get-current-image))
 (setq org-inline-image-animate  (byte-compile 'org-inline-image-animate ))
 (add-hook 'post-command-hook 'org-inline-image-animate-auto)
+
+;; org scale images
+(setq org-image-actual-width nil)
