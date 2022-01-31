@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: scale
+# key: scale
+# --
+#+ATTR_HTML: width="100px"
+#+ATTR_ORG: :width 100
