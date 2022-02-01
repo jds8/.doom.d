@@ -460,6 +460,11 @@
       :desc "lively"
       "l" #'lively-macro)
 
+;; compute jobs
+(map! :leader
+      :desc "List of compute jobs"
+      "n ;" #'(lambda ()(interactive) (find-file (concat (file-name-as-directory org-directory) "Notes/Research/jobs.org"))))
+
 ;; Use BibLaTex
 (setq bibtex-dialect 'biblatex)
 
