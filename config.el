@@ -150,8 +150,10 @@
 (evil-set-register ?m [?d ?d ?` ?m ?p ?$ ?m ?m])
 (fset 'wrap_fun
    (kmacro-lambda-form [?y ?s ?i ?o ?\) ?i ?\C-r ?. escape] 0 "%d"))
-(global-set-key (kbd "M-p") 'wrap_fun)
-
+(global-set-key (kbd "C-c f") 'wrap_fun)
+(fset 'range
+   (kmacro-lambda-form [?c ?i ?W ?r ?a ?n ?g ?e ?\( ?\C-r ?\" ?\) escape] 0 "%d"))
+(global-set-key (kbd "C-c r") 'range)
 
 ;; Keybindings
 (global-set-key (kbd "C-c <right>") 'next-buffer)
