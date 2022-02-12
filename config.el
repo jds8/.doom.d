@@ -558,7 +558,13 @@
                  :predicate (lambda (j) (string-match "(CG)" j)))
                  )))
 
-(defun jobs-taxonomy () (insert (format "%s" (let ((jobs (-filter '(lambda (x) (string-match "([A-z]+)" x)) (with-temp-buffer
+;; iterates through headers that contain job statuses in jobs.org and then taxonomizes them
+;; inserts the output into a new buffer called jobs-temp
+(defun jobs-taxonomy ()
+  (switch-to-buffer (make-temp-name "jobs-temp"))
+  (insert
+    (replace-regexp-in-string ")\\([^)]\\)" ")\\1\n"
+      (format "%s" (let ((jobs (-filter '(lambda (x) (string-match "([A-z]+)" x)) (with-temp-buffer
   (org-mode)
   (insert-file-contents jobs-file)
   (goto-char (point-min))
@@ -566,17 +572,7 @@
       ;; Since `numbery' is stored in a variable, we use an emptied
       ;; copy of it to avoid mutating the original taxy.
       (taxy (taxy-emptied jobs-taxy)))
-                       (taxy-plain (taxy-fill jobs taxy))))))
-
-(defun jobs-t () (let ((jobs (-filter '(lambda (x) (string-match "([A-z]+)" x)) (with-temp-buffer
-  (org-mode)
-  (insert-file-contents jobs-file)
-  (goto-char (point-min))
-  (org-map-entries '(lambda () (org-entry-get nil "ITEM"))))))
-      ;; Since `numbery' is stored in a variable, we use an emptied
-      ;; copy of it to avoid mutating the original taxy.
-      (taxy (taxy-emptied jobs-taxy)))
-                       (taxy-plain (taxy-fill jobs taxy))))
+                       (taxy-plain (taxy-fill jobs taxy)))))))
 
 (map! :leader
       :desc "Insert jobs taxonomy"
