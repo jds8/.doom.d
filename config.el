@@ -462,11 +462,6 @@
       :desc "lively"
       "l" #'lively-macro)
 
-;; compute jobs
-(map! :leader
-      :desc "List of compute jobs"
-      "n ;" #'(lambda ()(interactive) (find-file (concat (file-name-as-directory org-directory) "Notes/Research/jobs.org"))))
-
 ;; Use BibLaTex
 (setq bibtex-dialect 'biblatex)
 
@@ -535,3 +530,54 @@
 
 ;; org scale images
 (setq org-image-actual-width nil)
+
+;; compute jobs
+(setq jobs-file (concat (file-name-as-directory org-directory) "Notes/Research/jobs.org"))
+(map! :leader
+      :desc "List of compute jobs"
+      "n ;" #'(lambda ()(interactive) (find-file jobs-file)))
+
+;; taxonomy of jobs
+(require 'taxy)
+
+(defvar jobs-taxy
+  (make-taxy
+   :name "Jobs"
+   :description "Taxonomy of jobs"
+   :taxys (list (make-taxy
+                 :name "Running"
+                 :predicate (lambda (j) (string-match "(R)" j)))
+                (make-taxy
+                 :name "Pending"
+                 :predicate (lambda (j) (string-match "(PD)" j)))
+                (make-taxy
+                 :name "Finished"
+                 :predicate (lambda (j) (string-match "(F)" j)))
+                (make-taxy
+                 :name "Cancelled"
+                 :predicate (lambda (j) (string-match "(CG)" j)))
+                 )))
+
+(defun jobs-taxonomy () (insert (format "%s" (let ((jobs (-filter '(lambda (x) (string-match "([A-z]+)" x)) (with-temp-buffer
+  (org-mode)
+  (insert-file-contents jobs-file)
+  (goto-char (point-min))
+  (org-map-entries '(lambda () (org-entry-get nil "ITEM"))))))
+      ;; Since `numbery' is stored in a variable, we use an emptied
+      ;; copy of it to avoid mutating the original taxy.
+      (taxy (taxy-emptied jobs-taxy)))
+                       (taxy-plain (taxy-fill jobs taxy))))))
+
+(defun jobs-t () (let ((jobs (-filter '(lambda (x) (string-match "([A-z]+)" x)) (with-temp-buffer
+  (org-mode)
+  (insert-file-contents jobs-file)
+  (goto-char (point-min))
+  (org-map-entries '(lambda () (org-entry-get nil "ITEM"))))))
+      ;; Since `numbery' is stored in a variable, we use an emptied
+      ;; copy of it to avoid mutating the original taxy.
+      (taxy (taxy-emptied jobs-taxy)))
+                       (taxy-plain (taxy-fill jobs taxy))))
+
+(map! :leader
+      :desc "Insert jobs taxonomy"
+      "n :" #'(lambda ()(interactive) (jobs-taxonomy)))

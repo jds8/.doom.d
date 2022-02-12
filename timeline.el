@@ -77,6 +77,6 @@
                       (org-entry-get nil "ITEM")
                       )))))) 'before))
 
-(setq file "~/OneDrive - UBC/Notes/Research/2021-08-25-jpsro.org")
+(setq file (concat (file-name-as-directory org-directory) "Notes/Research/jobs.org"))
 
 (get-periods file)
