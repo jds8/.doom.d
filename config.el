@@ -577,3 +577,79 @@
 (map! :leader
       :desc "Insert jobs taxonomy"
       "n :" #'(lambda ()(interactive) (jobs-taxonomy)))
+
+;; run current file
+(defvar xah-run-current-file-before-hook nil "Hook for `xah-run-current-file'. Before the file is run.")
+(defvar xah-run-current-file-after-hook nil "Hook for `xah-run-current-file'. After the file is run.")
+(defvar xah-run-current-file-map nil "A association list that maps file extension to program path, used by `xah-run-current-file'. First element is file suffix, second is program name or path. You can add items to it.")
+(setq
+ xah-run-current-file-map
+ '(
+   ("php" . "php")
+   ("pl" . "perl")
+   ("py" . "python")
+   ("py2" . "python2")
+   ("py3" . "python3")
+   ("rb" . "ruby")
+   ("go" . "go run")
+   ("hs" . "runhaskell")
+   ("js" . "deno run")
+   ("ts" . "deno run") ; TypeScript
+   ("tsx" . "tsc")
+   ("mjs" . "node --experimental-modules ")
+   ("sh" . "bash")
+   ("clj" . "java -cp ~/apps/clojure-1.6.0/clojure-1.6.0.jar clojure.main")
+   ("rkt" . "racket")
+   ("ml" . "ocaml")
+   ("vbs" . "cscript")
+   ("tex" . "pdflatex")
+   ("latex" . "pdflatex")
+   ("java" . "javac")
+   ;; ("pov" . "/usr/local/bin/povray +R2 +A0.1 +J1.2 +Am2 +Q9 +H480 +W640")
+   ))
+(defun xah-run-current-file ()
+  "Execute the current file.
+For example, if the current buffer is x.py, then it'll call 「python x.py」 in a shell.
+Output is printed to buffer “*xah-run output*”.
+File suffix is used to determine which program to run, set in the variable `xah-run-current-file-map'.
+
+If the file is modified or not saved, save it automatically before run.
+
+URL `http://xahlee.info/emacs/emacs/elisp_run_current_file.html'
+Version 2020-09-24 2021-01-21"
+  (interactive)
+  (let (
+        ($outBuffer "*xah-run output*")
+        (resize-mini-windows nil)
+        ($suffixMap xah-run-current-file-map )
+        $fname
+        $fSuffix
+        $progName
+        $cmdStr)
+    (when (not (buffer-file-name)) (save-buffer))
+    (when (buffer-modified-p) (save-buffer))
+    (setq $fname (buffer-file-name))
+    (setq $fSuffix (file-name-extension $fname))
+    (setq $progName (cdr (assoc $fSuffix $suffixMap)))
+    (setq $cmdStr (concat $progName " \""   $fname "\" &"))
+    (run-hooks 'xah-run-current-file-before-hook)
+    (cond
+     ((string-equal $fSuffix "el")
+      (load $fname))
+     ((string-equal $fSuffix "go")
+      (xah-run-current-go-file))
+     ((string-equal $fSuffix "java")
+      (progn
+        (shell-command (format "javac %s" $fname) $outBuffer )
+        (shell-command (format "java %s" (file-name-sans-extension
+                                          (file-name-nondirectory $fname))) $outBuffer )))
+     (t (if $progName
+            (progn
+              (message "Running")
+              (shell-command $cmdStr $outBuffer ))
+          (error "No recognized program file suffix for this file."))))
+    (run-hooks 'xah-run-current-file-after-hook)))
+
+(map! :leader
+      :desc "Xah Run Current File"
+      "f x" #'xah-run-current-file)
