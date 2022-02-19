@@ -243,6 +243,9 @@
 (map! :leader
       :desc "Org Mind Map"
       "z m" #'org-mind-map-write)
+(map! :leader
+      :desc "Org Add Tag"
+      "z T" #'org-roam-tag-add)
 
 ;; misc
 (map! :leader
