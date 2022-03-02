@@ -156,13 +156,6 @@
 (global-set-key (kbd "C-c r") 'range)
 
 ;; Keybindings
-(global-set-key (kbd "C-c <right>") 'next-buffer)
-(global-set-key (kbd "C-c <left>") 'previous-buffer)
-(global-set-key (kbd "C-x t t") 'tab-new)
-(global-set-key (kbd "C-x t n") 'tab-next)
-(global-set-key (kbd "C-x t p") 'tab-previous)
-(global-set-key (kbd "C-x t r") 'tab-rename)
-(global-set-key (kbd "C-x t x") 'tab-close)
 (global-set-key (kbd "C-x C-k") '(lambda ()(interactive) (kill-buffer nil)))
 (global-set-key (kbd "C-l") 'org-latex-preview)
 
