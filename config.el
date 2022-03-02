@@ -649,3 +649,23 @@ Version 2020-09-24 2021-01-21"
 (map! :leader
       :desc "Xah Run Current File"
       "f x" #'xah-run-current-file)
+
+;; https://stackoverflow.com/questions/18102004/emacs-evil-mode-how-to-create-a-new-text-object-to-select-words-with-any-non-sp
+;; Gordon Gustafson
+(defmacro define-and-bind-text-object (key start-regex end-regex name)
+  (let ((inner-name (make-symbol name))
+        (outer-name (make-symbol "outer-name")))
+    `(progn
+       (evil-define-text-object ,inner-name (count &optional beg end type)
+         (evil-select-paren ,start-regex ,end-regex beg end type count nil))
+       (evil-define-text-object ,outer-name (count &optional beg end type)
+         (evil-select-paren ,start-regex ,end-regex beg end type count t))
+       (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
+       (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
+
+;; from regex "=" up to regex "$", bound to r (invoke with "vir" or "var"):
+(define-and-bind-text-object "r" "=" "$" "rhs of =")
+(define-and-bind-text-object "l" "^" "=" "lhs of =")
+
+;; between dollar signs
+(define-and-bind-text-object "$" "\\$" "\\$" "between $ signs")
