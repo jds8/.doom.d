@@ -149,11 +149,14 @@
    (kmacro-lambda-form [?d ?d ?` ?m ?p ?$ ?m ?m] 0 "%d"))
 (evil-set-register ?m [?d ?d ?` ?m ?p ?$ ?m ?m])
 (fset 'wrap_fun
-   (kmacro-lambda-form [?y ?s ?i ?o ?\) ?i ?\C-r ?. escape] 0 "%d"))
+   (kmacro-lambda-form [?y ?s ?i ?o ?\) ?i ?\C-r ?f escape] 0 "%d"))
 (global-set-key (kbd "C-c f") 'wrap_fun)
 (fset 'range
    (kmacro-lambda-form [?c ?i ?W ?r ?a ?n ?g ?e ?\( ?\C-r ?\" ?\) escape] 0 "%d"))
 (global-set-key (kbd "C-c r") 'range)
+(fset 'insert-pdb
+   (kmacro-lambda-form [?H ?D ?i ?t backspace ?  ?t ?r ?y ?: return ?\C-r ?\" return ?e ?x ?c ?e ?p ?t ?: return escape ? ?i ?s ?p ?d ?b return escape ?: ?w return] 0 "%d"))
+(global-set-key (kbd "C-c d") 'insert-pdb)
 
 ;; Keybindings
 (global-set-key (kbd "C-x C-k") '(lambda ()(interactive) (kill-buffer nil)))
@@ -664,8 +667,8 @@ Version 2020-09-24 2021-01-21"
        (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
 
 ;; from regex "=" up to regex "$", bound to r (invoke with "vir" or "var"):
-(define-and-bind-text-object "r" "=" "$" "rhs of =")
-(define-and-bind-text-object "l" "^" "=" "lhs of =")
+(define-and-bind-text-object "l" "=" "$" "rhs of =")
+(define-and-bind-text-object "h" "^" "=" "lhs of =")
 
 ;; between dollar signs
 (define-and-bind-text-object "$" "\\$" "\\$" "between $ signs")
