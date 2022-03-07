@@ -1,0 +1,6 @@
+# name: self
+# key: .
+# uuid: .
+# group: object oriented
+# --
+self.$1 = $1
