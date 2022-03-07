@@ -131,7 +131,7 @@
 (fset 'range
    (kmacro-lambda-form [?c ?i ?W ?r ?a ?n ?g ?e ?\( ?\C-r ?\" ?\) escape] 0 "%d"))
 (fset 'insert-pdb
-   (kmacro-lambda-form [?H ?D ?i ?t backspace ?  ?t ?r ?y ?: return ?\C-r ?\" return ?e ?x ?c ?e ?p ?t ?: return escape ? ?i ?s ?p ?d ?b return escape ?: ?w return] 0 "%d"))
+   (kmacro-lambda-form [?H ?D ?i ?t backspace ?  ?t ?r ?y ?: return ?\C-r ?\" return ?e ?x ?c ?e ?p ?t ?: return escape ? ?i ?s ?p ?d ?b return escape] 0 "%d"))
 
 ;; Keybindings
 (with-eval-after-load 'python
@@ -142,6 +142,15 @@
 )
 (global-set-key (kbd "C-x C-k") '(lambda ()(interactive) (kill-buffer nil)))
 (global-set-key (kbd "C-l") 'org-latex-preview)
+(global-set-key (kbd "C-,")
+                '(lambda ()(interactive)
+                   (let ((value (replace-regexp-in-string ",\\([A-z0-9\.]\\)" ", \\1" (buffer-substring (region-beginning) (region-end)))))
+                     (delete-region (region-beginning) (region-end)) (insert value))))
+
+;; transpose characters
+(map! :leader
+      :desc "transpose chars"
+      "C-t" 'transpose-chars)
 
 ;; org ref
 (map! :leader
@@ -653,3 +662,23 @@ Version 2020-09-24 2021-01-21"
 
 ;; between dollar signs
 (define-and-bind-text-object "$" "\\$" "\\$" "between $ signs")
+
+;; blink cursor
+(defvar blink-cursor-colors (list  "#92c48f" "#6785c5" "#be369c" "#d9ca65")
+  "On each blink the cursor will cycle to the next color in this list.")
+(set-cursor-color "#D4AF37")
+(setq blink-cursor-count 0)
+(defun blink-cursor-timer-function ()
+  "Zarza wrote this cyberpunk variant of timer `blink-cursor-timer'.
+Warning: overwrites original version in `frame.el'.
+
+This one changes the cursor color on each blink. Define colors in `blink-cursor-colors'."
+  (when (not (internal-show-cursor-p))
+    (when (>= blink-cursor-count (length blink-cursor-colors))
+      (setq blink-cursor-count 0))
+    (set-cursor-color (nth blink-cursor-count blink-cursor-colors))
+    (setq blink-cursor-count (+ 1 blink-cursor-count))
+    )
+  (internal-show-cursor nil (not (internal-show-cursor-p)))
+  )
+(blink-cursor-mode)
