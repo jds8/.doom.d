@@ -149,6 +149,7 @@
                 '(lambda ()(interactive)
                    (let ((value (replace-regexp-in-string ",\\([A-z0-9\.]\\)" ", \\1" (buffer-substring (region-beginning) (region-end)))))
                      (delete-region (region-beginning) (region-end)) (insert value))))
+(global-set-key (kbd "<f3>") 'shell)
 
 ;; transpose characters
 (map! :leader
@@ -685,3 +686,6 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
   (internal-show-cursor nil (not (internal-show-cursor-p)))
   )
 (blink-cursor-mode)
+
+;; save upon exiting insert mode
+(add-hook 'evil-insert-state-exit-hook (lambda () (if (buffer-file-name) (save-buffer))))
