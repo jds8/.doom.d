@@ -66,6 +66,10 @@
                      (goto-char end)
                      (titlecase-dwim)))))
 
+;; standard emacs bindings in evil insert mode
+(define-key evil-insert-state-map (kbd "C-n") 'next-line)      ;; was 'evil-complete-next
+(define-key evil-insert-state-map (kbd "C-p") 'previous-line)  ;; was 'evil-complete-previous
+
 ;; elisp functions
 (load! "string-lib")
 (defun join (delim ls) (if (eq nil ls) nil (concat (car ls) delim (join delim (cdr ls)))))
@@ -660,7 +664,7 @@ Version 2020-09-24 2021-01-21"
        (define-key evil-inner-text-objects-map ,key (quote ,inner-name))
        (define-key evil-outer-text-objects-map ,key (quote ,outer-name)))))
 
-;; from regex "=" up to regex "$", bound to r (invoke with "vir" or "var"):
+;; from regex "=" up to regex "$", bound to r (invoke with "vil" or "val"):
 (define-and-bind-text-object "l" "=" "$" "rhs of =")
 (define-and-bind-text-object "h" "^" "=" "lhs of =")
 
@@ -689,3 +693,7 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 
 ;; save upon exiting insert mode
 (add-hook 'evil-insert-state-exit-hook (lambda () (if (buffer-file-name) (save-buffer))))
+
+;; Beacon mode
+(beacon-mode 1)
+(setq beacon-color "#FF0000")
