@@ -155,11 +155,6 @@
                      (delete-region (region-beginning) (region-end)) (insert value))))
 (global-set-key (kbd "<f3>") 'shell)
 
-;; transpose characters
-(map! :leader
-      :desc "transpose chars"
-      "C-t" 'transpose-chars)
-
 ;; org ref
 (map! :leader
       :desc "insert ref"
@@ -256,9 +251,21 @@
 (map! :leader
       :desc "Dired of snippets"
       "s y" #'(lambda ()(interactive) (dired "~/.doom.d/snippets/")))
+
+;; transpose
 (map! :leader
-      :desc "Dired of One Drive - UBC"
-      "d" #'(lambda ()(interactive) (dired "~/OneDrive - UBC")))
+      (:prefix ("d" . "Transposes"))
+      :desc "Transpose Chars"
+      "d c" #'transpose-chars)
+(map! :leader
+      :desc "Transpose Words"
+      "d w" #'transpose-words)
+(map! :leader
+      :desc "Transpose Paragraphs"
+      "d p" #'transpose-paragraphs)
+(map! :leader
+      :desc "Transpose Lines"
+      "d l" #'transpose-lines)
 
 ;; org noter
 (map! :leader
@@ -694,6 +701,6 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 ;; save upon exiting insert mode
 (add-hook 'evil-insert-state-exit-hook (lambda () (if (buffer-file-name) (save-buffer))))
 
-;; Beacon mode
+;; Focus/Beacon mode
 (beacon-mode 1)
 (setq beacon-color "#FF0000")
