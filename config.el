@@ -146,6 +146,8 @@
   (define-key python-mode-map (kbd "C-c d") 'insert-pdb)
   (define-key python-mode-map (kbd "C-c t") 'run-test)
   (define-key python-mode-map (kbd "C-c s") 'self)
+  (define-key python-mode-map (kbd "C-;") 'er/expand-region)
+  (define-key python-mode-map (kbd "C-:") 'er/contract-region)
 )
 (global-set-key (kbd "C-x C-k") '(lambda ()(interactive) (kill-buffer nil)))
 (global-set-key (kbd "C-l") 'org-latex-preview)
