@@ -156,6 +156,8 @@
                    (let ((value (replace-regexp-in-string ",\\([A-z0-9\.]\\)" ", \\1" (buffer-substring (region-beginning) (region-end)))))
                      (delete-region (region-beginning) (region-end)) (insert value))))
 (global-set-key (kbd "<f3>") 'shell)
+(global-set-key (kbd "M-[") 'scroll-down)
+(global-set-key (kbd "M-]") 'scroll-up)
 
 ;; org ref
 (map! :leader
@@ -339,7 +341,7 @@
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}"
                         "#+LATEX_HEADER: \\usepackage{bbm}"
-                        "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n\n"))
+                        "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n\n"))
          :unnarrowed t)
         ("r" "Research" plain
          "%?"
@@ -350,7 +352,7 @@
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
                         "#+LATEX_HEADER: \\usepackage{bbm}\n\n"
-                        "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n\n"
+                        "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n\n"
                         "* Valuable Terminology\n\n"
                         "* Notes"))
          :unnarrowed t)
@@ -363,7 +365,7 @@
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
                         "#+LATEX_HEADER: \\usepackage{bbm}\n\n"
-                        "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n\n"
+                        "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n\n"
                         "* Valuable Terminology\n\n"
                         "* Notes"))
          :unnarrowed t)
@@ -376,7 +378,7 @@
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
                         "#+LATEX_HEADER: \\usepackage{bbm}\n\n"
-                        "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n"
+                        "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n"
                         "* Today's Workout\n\n"
                         "* Goals"))
          :unnarrowed t)
@@ -388,7 +390,7 @@
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
-                        "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n"
+                        "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n"
                         "* Title\n"))
          :unnarrowed t)
         ("b" "Beamer" plain
@@ -400,7 +402,7 @@
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
                         "#+LATEX_HEADER: \\usepackage{bbm}\n\n"
-                        "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n\n"
+                        "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n\n"
                         "#+KEYWORDS:\n"
                         "#+LANGUAGE:  en\n"
                         "#+OPTIONS:   H:1 num:t toc:nil \\n:nil @:t ::t |:t ^:t -:t f:t *:t <:t\n"
@@ -424,7 +426,7 @@
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
                         "#+LATEX_HEADER: \\usepackage{bbm}\n\n"
-                        "#+LATEX_HEADER: \\setlength{\parindent}{0pt}\n\n"
+                        "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n\n"
                         "#+BEGIN_EXPORT html\n"
                         "---\n"
                         "layout: post\n"
