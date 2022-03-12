@@ -385,7 +385,8 @@
                         "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n"
                         "* Today's Workout\n\n"
                         "* Goals\n\n"
-                        "* Weekly Mileage"))
+                        "* Weekly Mileage"
+                        ))
          :unnarrowed t)
         ("h" "History" plain
          "%?"
