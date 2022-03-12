@@ -105,6 +105,8 @@
 
 (defun insert-current-time ()
   (interactive)
+  (forward-char)
+  (insert " ")
   (org-insert-time-stamp (current-time) t))
 
    ;; soure: https://systemcrafters.net/build-a-second-brain-in-emacs/5-org-roam-hacks/
