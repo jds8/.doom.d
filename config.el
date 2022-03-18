@@ -137,7 +137,7 @@
 (fset 'range
    (kmacro-lambda-form [?c ?i ?W ?r ?a ?n ?g ?e ?\( ?\C-r ?\" ?\) escape] 0 "%d"))
 (fset 'insert-pdb
-   (kmacro-lambda-form [?H ?D ?i ?t backspace ?  ?t ?r ?y ?: return ?\C-r ?\" return ?e ?x ?c ?e ?p ?t ?: return escape ? ?i ?s ?p ?d ?b return escape] 0 "%d"))
+   (kmacro-lambda-form [?H ?D ?i ?t backspace ?  ?t ?r ?y ?: return ?\C-r ?\" return ?e ?x ?c ?e ?p ?t ?: return escape ? ?i ?s ?p ?d ?b return escape ?= ?=] 0 "%d"))
 (fset 'self
    (kmacro-lambda-form [?o ?s ?e backspace backspace ?s ?e ?l ?f ?. ?\C-r ?0 ?  ?= ?  ?\C-r ?0 escape ?H] 0 "%d"))
 
@@ -155,7 +155,7 @@
 (global-set-key (kbd "C-l") 'org-latex-preview)
 (global-set-key (kbd "C-,")
                 '(lambda ()(interactive)
-                   (let ((value (replace-regexp-in-string ",\\([A-z0-9\.:]\\)" ", \\1" (buffer-substring (region-beginning) (region-end)))))
+                   (let ((value (replace-regexp-in-string ",\\([A-z0-9\.:\"\']\\)" ", \\1" (buffer-substring (region-beginning) (region-end)))))
                      (delete-region (region-beginning) (region-end)) (insert value))))
 (global-set-key (kbd "<f3>") 'shell)
 (global-set-key (kbd "M-[") 'scroll-down)
