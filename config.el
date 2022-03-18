@@ -385,9 +385,7 @@
                         "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n"
                         "* Today's Workout\n\n"
                         "* Goals\n\n"
-                        "* Weekly Mileage since last "
-                        (shell-command-to-string "echo -n $(date +%A)")))
-
+                        "* Weekly Mileage since last "))
          :unnarrowed t)
         ("h" "History" plain
          "%?"
