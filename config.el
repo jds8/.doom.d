@@ -140,6 +140,12 @@
    (kmacro-lambda-form [?H ?D ?i ?t backspace ?  ?t ?r ?y ?: return ?\C-r ?\" return ?e ?x ?c ?e ?p ?t ?: return escape ? ?i ?s ?p ?d ?b return escape ?= ?=] 0 "%d"))
 (fset 'self
    (kmacro-lambda-form [?o ?s ?e backspace backspace ?s ?e ?l ?f ?. ?\C-r ?0 ?  ?= ?  ?\C-r ?0 escape ?H] 0 "%d"))
+(fset 'wrap_symbol_python
+   (kmacro-lambda-form [escape ?y ?s ?i ?o ?\) ?i] 0 "%d"))
+(fset 'wrap_symbol_org
+   (kmacro-lambda-form [escape ?y ?s ?i ?o ?\} ?i ?\\] 0 "%d"))
+(fset 'remove-function-call
+   (kmacro-lambda-form [escape ?F ?\( ?h ?v ?i ?o ?d ?d ?s ?\(] 0 "%d"))
 
 ;; Keybindings
 (with-eval-after-load 'python
@@ -150,6 +156,11 @@
   (define-key python-mode-map (kbd "C-c s") 'self)
   (define-key python-mode-map (kbd "C-;") 'er/expand-region)
   (define-key python-mode-map (kbd "C-:") 'er/contract-region)
+  (define-key python-mode-map (kbd "C-c w") 'wrap_symbol_python)
+  (define-key python-mode-map (kbd "C-c c") 'remove-function-call)
+)
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-c w") 'wrap_symbol_org)
 )
 (global-set-key (kbd "C-x C-k") '(lambda ()(interactive) (kill-buffer nil)))
 (global-set-key (kbd "C-l") 'org-latex-preview)

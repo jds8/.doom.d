@@ -2,6 +2,8 @@
 # name: lit-review
 # key: lit
 # --
+** Useful Terminology
+
 ** What's the problem?
 $0
 
@@ -24,3 +26,5 @@ $0
 *** Areas for improvement/extension
 
 ** Questions
+*** What models are used?
+*** What datasets are used?
