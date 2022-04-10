@@ -69,6 +69,8 @@
 ;; standard emacs bindings in evil insert mode
 (define-key evil-insert-state-map (kbd "C-n") 'next-line)      ;; was 'evil-complete-next
 (define-key evil-insert-state-map (kbd "C-p") 'previous-line)  ;; was 'evil-complete-previous
+(define-key evil-window-map (kbd "z") '(lambda ()(interactive) (evil-window-bottom-right) (evil-window-left 10)))
+(define-key evil-window-map (kbd "d") '(lambda ()(interactive) (evil-window-top-left) (evil-window-right 10)))
 
 ;; elisp functions
 (load! "string-lib")
@@ -141,11 +143,13 @@
 (fset 'self
    (kmacro-lambda-form [?o ?s ?e backspace backspace ?s ?e ?l ?f ?. ?\C-r ?0 ?  ?= ?  ?\C-r ?0 escape ?H] 0 "%d"))
 (fset 'wrap_symbol_python
-   (kmacro-lambda-form [escape ?y ?s ?i ?o ?\) ?i] 0 "%d"))
+   (kmacro-lambda-form [escape ?y ?s ?i ?W ?\) ?i] 0 "%d"))
 (fset 'wrap_symbol_org
    (kmacro-lambda-form [escape ?y ?s ?i ?o ?\} ?i ?\\] 0 "%d"))
 (fset 'remove-function-call
    (kmacro-lambda-form [escape ?F ?\( ?h ?v ?i ?o ?d ?d ?s ?\(] 0 "%d"))
+(fset 'boldify
+   (kmacro-lambda-form [escape ?y ?s ?i ?w ?* ?e ?e ?a] 0 "%d"))
 
 ;; Keybindings
 (with-eval-after-load 'python
@@ -157,10 +161,11 @@
   (define-key python-mode-map (kbd "C-;") 'er/expand-region)
   (define-key python-mode-map (kbd "C-:") 'er/contract-region)
   (define-key python-mode-map (kbd "C-c w") 'wrap_symbol_python)
-  (define-key python-mode-map (kbd "C-c c") 'remove-function-call)
+  (define-key python-mode-map (kbd "C-c x") 'remove-function-call)
 )
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-c w") 'wrap_symbol_org)
+  (define-key org-mode-map (kbd "C-c b") 'boldify)
 )
 (global-set-key (kbd "C-x C-k") '(lambda ()(interactive) (kill-buffer nil)))
 (global-set-key (kbd "C-l") 'org-latex-preview)
