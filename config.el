@@ -703,6 +703,9 @@ Version 2020-09-24 2021-01-21"
 ;; between dollar signs
 (define-and-bind-text-object "$" "\\$" "\\$" "between $ signs")
 
+;; from space to colon
+(define-and-bind-text-object ":" " " ":" "space to colon")
+
 ;; blink cursor
 (defvar blink-cursor-colors (list  "#92c48f" "#6785c5" "#be369c" "#d9ca65")
   "On each blink the cursor will cycle to the next color in this list.")
