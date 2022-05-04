@@ -85,6 +85,7 @@
 (defun name-to-prk (str) (concat "PrimaryKeyColumns." (let ((level (get-level str))) (cond ((string= level "county") "FIPS") ((string= level "cbsa") "CBSAFP") ((string= level "state") "STATEABBR") ((string= level "censusregion") "CENSUS_REGION_NUM") ((string= level "femaregion") "FEMA_REGION_NUM") ((string= level "national") "NATIONAL") (t level)) )))
 (defun to-spaces (str) (make-string (length str) ?\ ))
 
+;; buffer functions
    ;; source: http://steve.yegge.googlepages.com/my-dot-emacs-file
 (defun rename-file-and-buffer (new-name)
   "Renames both current buffer and file it's visiting to NEW-NAME."
@@ -101,6 +102,14 @@
           (set-visited-file-name new-name)
           (set-buffer-modified-p nil))))))
 
+    ;; check if name matches any buffer name
+(defun any-helper (l c) (if c t (if (cdr l) (any-helper (cdr l) (car l)) (car l))))
+(defun any (l) (any-helper l nil))
+(defun matches-a-buffer-name? (name)
+  "Return non-nil if NAME matches the name of an existing buffer."
+  (any (mapcar (lambda (buff) (string-match name (buffer-name buff))) (buffer-list))))
+
+;; date and time functions
 (defun insert-current-date ()
   (interactive)
   (insert (shell-command-to-string "echo -n $(date +%Y-%m-%d)")))
