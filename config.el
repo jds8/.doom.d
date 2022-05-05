@@ -105,6 +105,14 @@
     ;; check if name matches any buffer name
 (defun any-helper (l c) (if c t (if (cdr l) (any-helper (cdr l) (car l)) (car l))))
 (defun any (l) (any-helper l nil))
+
+(defun find-buffer-helper (needle haystack)
+  (if (not haystack) nil
+    (let ((buff (buffer-name (car haystack))))
+    (let ((match (string-match needle buff)))
+    (if match buff (find-buffer-helper needle (cdr haystack)))))))
+(defun find-buffer (needle) (find-buffer-helper needle (buffer-list)))
+
 (defun matches-a-buffer-name? (name)
   "Return non-nil if NAME matches the name of an existing buffer."
   (any (mapcar (lambda (buff) (string-match name (buffer-name buff))) (buffer-list))))
@@ -148,7 +156,7 @@
 (fset 'range
    (kmacro-lambda-form [?c ?i ?W ?r ?a ?n ?g ?e ?\( ?\C-r ?\" ?\) escape] 0 "%d"))
 (fset 'insert-pdb
-   (kmacro-lambda-form [?H ?D ?i ?t ?r ?y ?: return ?\C-r ?\" return ?e ?x ?c ?e ?p ?t ?: return escape ? ?i ?s ?p ?d ?b return escape ?= ?= ?o ?\C-r ?\" return escape] 0 "%d"))
+   (kmacro-lambda-form [?H ?D ?a ?t ?r ?y ?: return ?\C-r ?\" return ?e ?x ?c ?e ?p ?t ?: return escape ? ?i ?s ?p ?d ?b return escape ?= ?= ?o ?\C-r ?\" return escape] 0 "%d"))
 (fset 'self
    (kmacro-lambda-form [?o ?s ?e backspace backspace ?s ?e ?l ?f ?. ?\C-r ?0 ?  ?= ?  ?\C-r ?0 escape ?H] 0 "%d"))
 (fset 'wrap_symbol_python
