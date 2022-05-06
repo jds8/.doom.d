@@ -123,6 +123,15 @@
              (insert (remove-new-lines value))
              )))
 
+    ;; send the current region to a user-specified buffer
+(defun send-flattened-region-to-buffer () (interactive
+        (let ((value (buffer-substring (region-beginning) (region-end)))
+              (buffer (read-string "Send to which buffer? ")))
+          (progn
+             (pop-to-buffer (find-buffer buffer))
+             (insert (remove-new-lines value))
+             ))))
+
 ;; date and time functions
 (defun insert-current-date ()
   (interactive)
@@ -186,6 +195,7 @@
   (define-key python-mode-map (kbd "C-c w") 'wrap_symbol_python)
   (define-key python-mode-map (kbd "C-c x") 'remove-function-call)
   (define-key python-mode-map (kbd "C-c v") 'send-flattened-region-to-shell)
+  (define-key python-mode-map (kbd "C-c V") 'send-flattened-region-to-buffer)
 )
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-c w") 'wrap_symbol_org)
