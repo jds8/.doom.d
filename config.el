@@ -124,12 +124,12 @@
              )))
 
     ;; send the current region to a user-specified buffer
-(defun send-flattened-region-to-buffer () (interactive
-        (let ((value (buffer-substring (region-beginning) (region-end)))
-              (buffer (read-string "Send to which buffer? ")))
+(defun send-flattened-region-to-buffer (buffer flatten) (interactive "bSend to which buffer?\nnJoin lines? (0/1) ")
+       (let ((value (buffer-substring (region-beginning) (region-end))))
+         (let ((val (if (= 1 flatten) (remove-new-lines value) value)))
           (progn
              (pop-to-buffer (find-buffer buffer))
-             (insert (remove-new-lines value))
+             (insert val)
              ))))
 
 ;; date and time functions
