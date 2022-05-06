@@ -182,6 +182,8 @@
    (kmacro-lambda-form [escape ?F ?\( ?h ?v ?i ?o ?d ?d ?s ?\(] 0 "%d"))
 (fset 'boldify
    (kmacro-lambda-form [escape ?y ?s ?i ?w ?* ?e ?e ?a] 0 "%d"))
+(fset 'find-function
+   (kmacro-lambda-form [escape ?\C-\M-a ?f ?\( ?h ?*] 0 "%d"))
 
 ;; Keybindings
 (with-eval-after-load 'python
@@ -196,6 +198,7 @@
   (define-key python-mode-map (kbd "C-c x") 'remove-function-call)
   (define-key python-mode-map (kbd "C-c v") 'send-flattened-region-to-shell)
   (define-key python-mode-map (kbd "C-c V") 'send-flattened-region-to-buffer)
+  (define-key python-mode-map (kbd "C-c /") 'find-function)
 )
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-c w") 'wrap_symbol_org)
@@ -766,3 +769,6 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 ;; Focus/Beacon mode
 (beacon-mode 1)
 (setq beacon-color "#FF0000")
+
+;; tells you which function you're in
+(which-function-mode)
