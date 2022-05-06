@@ -102,10 +102,7 @@
           (set-visited-file-name new-name)
           (set-buffer-modified-p nil))))))
 
-    ;; check if name matches any buffer name
-(defun any-helper (l c) (if c t (if (cdr l) (any-helper (cdr l) (car l)) (car l))))
-(defun any (l) (any-helper l nil))
-
+    ;; find buffer whose name contains with "needle"
 (defun find-buffer-helper (needle haystack)
   (if (not haystack) nil
     (let ((buff (buffer-name (car haystack))))
@@ -113,9 +110,18 @@
     (if match buff (find-buffer-helper needle (cdr haystack)))))))
 (defun find-buffer (needle) (find-buffer-helper needle (buffer-list)))
 
-(defun matches-a-buffer-name? (name)
-  "Return non-nil if NAME matches the name of an existing buffer."
-  (any (mapcar (lambda (buff) (string-match name (buffer-name buff))) (buffer-list))))
+    ;; remove new line characters from str
+(defun remove-new-lines (str)
+  (let ((value (replace-regexp-in-string "\n" " " str)))
+    (replace-regexp-in-string " +" " " value)))
+
+    ;; send the current region to the shell buffer
+(defun send-flattened-region-to-shell () (interactive)
+        (let ((value (buffer-substring (region-beginning) (region-end))))
+          (progn
+             (pop-to-buffer (find-buffer "shell"))
+             (insert (remove-new-lines value))
+             )))
 
 ;; date and time functions
 (defun insert-current-date ()
@@ -179,6 +185,7 @@
   (define-key python-mode-map (kbd "C-:") 'er/contract-region)
   (define-key python-mode-map (kbd "C-c w") 'wrap_symbol_python)
   (define-key python-mode-map (kbd "C-c x") 'remove-function-call)
+  (define-key python-mode-map (kbd "C-c v") 'send-flattened-region-to-shell)
 )
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-c w") 'wrap_symbol_org)
