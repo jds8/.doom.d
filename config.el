@@ -200,6 +200,16 @@
   (define-key python-mode-map (kbd "C-c V") 'send-flattened-region-to-buffer)
   (define-key python-mode-map (kbd "C-c /") 'find-function)
 )
+(with-eval-after-load 'comint
+  (define-key comint-mode-map (kbd "C-c r") 'range)
+  (define-key comint-mode-map (kbd "C-c f") 'wrap_fun)
+  (define-key comint-mode-map (kbd "C-c t") 'run-test)
+  (define-key comint-mode-map (kbd "C-;") 'er/expand-region)
+  (define-key comint-mode-map (kbd "C-:") 'er/contract-region)
+  (define-key comint-mode-map (kbd "C-c w") 'wrap_symbol_python)
+  (define-key comint-mode-map (kbd "C-c x") 'remove-function-call)
+  (define-key comint-mode-map (kbd "C-c V") 'send-flattened-region-to-buffer)
+)
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-c w") 'wrap_symbol_org)
   (define-key org-mode-map (kbd "C-c b") 'boldify)
