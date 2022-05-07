@@ -182,7 +182,7 @@
    (kmacro-lambda-form [escape ?F ?\( ?h ?v ?i ?o ?d ?d ?s ?\(] 0 "%d"))
 (fset 'boldify
    (kmacro-lambda-form [escape ?y ?s ?i ?w ?* ?e ?e ?a] 0 "%d"))
-(fset 'find-function
+(fset 'find-method
    (kmacro-lambda-form [escape ?\C-\M-a ?f ?\( ?h ?*] 0 "%d"))
 
 ;; Keybindings
@@ -198,7 +198,7 @@
   (define-key python-mode-map (kbd "C-c x") 'remove-function-call)
   (define-key python-mode-map (kbd "C-c v") 'send-flattened-region-to-shell)
   (define-key python-mode-map (kbd "C-c V") 'send-flattened-region-to-buffer)
-  (define-key python-mode-map (kbd "C-c /") 'find-function)
+  (define-key python-mode-map (kbd "C-c /") 'find-method)
 )
 (with-eval-after-load 'comint
   (define-key comint-mode-map (kbd "C-c r") 'range)
