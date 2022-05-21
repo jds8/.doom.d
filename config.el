@@ -151,6 +151,23 @@
                                                   '(:immediate-finish t)))))
     (apply #'org-roam-node-insert args)))
 
+;; move current line up https://emacsredux.com/blog/2013/04/02/move-current-line-up-or-down/ (Bozhidar Batsov)
+(defun move-line-up ()
+  "Move up the current line."
+  (interactive)
+  (transpose-lines 1)
+  (forward-line -2)
+  (indent-according-to-mode))
+
+;; move current line down https://emacsredux.com/blog/2013/04/02/move-current-line-up-or-down/ (Bozhidar Batsov)
+(defun move-line-down ()
+  "Move down the current line."
+  (interactive)
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1)
+  (indent-according-to-mode))
+
 ;; Define Macros
 (fset 'lively-macro
    (kmacro-lambda-form [?a ?  escape ?  ?: ?l ?i ?v ?e ?l ?y return] 0 "%d"))
@@ -199,6 +216,8 @@
   (define-key python-mode-map (kbd "C-c v") 'send-flattened-region-to-shell)
   (define-key python-mode-map (kbd "C-c V") 'send-flattened-region-to-buffer)
   (define-key python-mode-map (kbd "C-c /") 'find-method)
+  (define-key python-mode-map (kbd "M-n") 'move-line-down)
+  (define-key python-mode-map (kbd "M-p") 'move-line-up)
 )
 (with-eval-after-load 'comint
   (define-key comint-mode-map (kbd "C-c r") 'range)
