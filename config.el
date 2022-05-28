@@ -469,9 +469,9 @@
                         "* Goals\n\n"
                         "* Weekly Mileage since last "))
          :unnarrowed t)
-        ("h" "History" plain
+        ("o" "Other" plain
          "%?"
-         :if-new (file+head "History/%<%Y-%m-%d>-${slug}.org"
+         :if-new (file+head "Other/%<%Y-%m-%d>-${slug}.org"
                ,(concat "#+TITLE: ${title}\n"
                         "#+AUTHOR: Justice Sefas\n"
                         "#+OPTIONS: toc:nil num:nil tex:t html-postamble:nil\n\n"
