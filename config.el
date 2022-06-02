@@ -69,6 +69,9 @@
 ;; standard emacs bindings in evil insert mode
 (define-key evil-insert-state-map (kbd "C-n") 'next-line)      ;; was 'evil-complete-next
 (define-key evil-insert-state-map (kbd "C-p") 'previous-line)  ;; was 'evil-complete-previous
+(define-key evil-insert-state-map (kbd "C-k") 'kill-line)  ;; was 'evil-complete-previous
+
+;; window bindings
 (define-key evil-window-map (kbd "z") '(lambda ()(interactive) (evil-window-bottom-right) (evil-window-left 10)))
 (define-key evil-window-map (kbd "d") '(lambda ()(interactive) (evil-window-top-left) (evil-window-right 10)))
 
