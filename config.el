@@ -240,7 +240,7 @@
 (global-set-key (kbd "C-l") 'org-latex-preview)
 (global-set-key (kbd "C-,")
                 '(lambda ()(interactive)
-                   (let ((value (replace-regexp-in-string ",\\([A-z0-9\.:\"\']\\)" ", \\1" (buffer-substring (region-beginning) (region-end)))))
+                   (let ((value (replace-regexp-in-string ",\\([-?A-z0-9\.:\"\']\\)" ", \\1" (buffer-substring (region-beginning) (region-end)))))
                      (delete-region (region-beginning) (region-end)) (insert value))))
 (global-set-key (kbd "<f3>") 'shell)
 (global-set-key (kbd "M-[") 'scroll-down)
