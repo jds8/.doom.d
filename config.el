@@ -241,7 +241,7 @@
 (global-set-key (kbd "C-,")
                 '(lambda ()(interactive)
                    (let ((value (replace-regexp-in-string ",\\([-?A-z0-9\.:\"\']\\)" ", \\1" (buffer-substring (region-beginning) (region-end)))))
-                     (delete-region (region-beginning) (region-end)) (insert value))))
+                     (delete-region (region-beginning) (region-end)) (insert value) (save-buffer))))
 (global-set-key (kbd "<f3>") 'shell)
 (global-set-key (kbd "M-[") 'scroll-down)
 (global-set-key (kbd "M-]") 'scroll-up)
