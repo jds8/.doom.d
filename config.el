@@ -207,6 +207,33 @@
   ;; put the point in the lowest line and return
   (next-line arg))
 
+;; http://xahlee.info/emacs/emacs/emacs_move_by_paragraph.html
+(defun xah-forward-block (&optional n)
+  "Move cursor beginning of next text block.
+A text block is separated by blank lines.
+This command similar to `forward-paragraph', but this command's behavior is the same regardless of syntax table.
+URL `http://xahlee.info/emacs/emacs/emacs_move_by_paragraph.html'
+Version 2016-06-15"
+  (interactive "p")
+  (let ((n (if (null n) 1 n)))
+    (re-search-forward "\n[\t\n ]*\n+" nil "NOERROR" n)))
+
+;; http://xahlee.info/emacs/emacs/emacs_move_by_paragraph.html
+(defun xah-backward-block (&optional n)
+  "Move cursor to previous text block.
+See: `xah-forward-block'
+URL `http://xahlee.info/emacs/emacs/emacs_move_by_paragraph.html'
+Version 2016-06-15"
+  (interactive "p")
+  (let ((n (if (null n) 1 n))
+        ($i 1))
+    (while (<= $i n)
+      (if (re-search-backward "\n[\t\n ]*\n+" nil "NOERROR")
+          (progn (skip-chars-backward "\n\t "))
+        (progn (goto-char (point-min))
+               (setq $i n)))
+      (setq $i (1+ $i)))))
+
 ;; Define Macros
 (fset 'lively-macro
    (kmacro-lambda-form [?a ?  escape ?  ?: ?l ?i ?v ?e ?l ?y return] 0 "%d"))
@@ -284,6 +311,8 @@
 (global-set-key (kbd "M-z") 'recenter)
 (global-set-key (kbd "M-Z") 'zap-to-char)
 (global-set-key (kbd "C-M-<return>") 'duplicate-line)
+(global-set-key (kbd "C-{") 'xah-forward-block)
+(global-set-key (kbd "C-}") 'xah-backward-block)
 
 ;; org ref
 (map! :leader
