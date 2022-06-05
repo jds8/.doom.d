@@ -311,8 +311,8 @@ Version 2016-06-15"
 (global-set-key (kbd "M-z") 'recenter)
 (global-set-key (kbd "M-Z") 'zap-to-char)
 (global-set-key (kbd "C-M-<return>") 'duplicate-line)
-(global-set-key (kbd "C-{") 'xah-forward-block)
-(global-set-key (kbd "C-}") 'xah-backward-block)
+(global-set-key (kbd "C-}") 'xah-forward-block)
+(global-set-key (kbd "C-{") 'xah-backward-block)
 
 ;; org ref
 (map! :leader
