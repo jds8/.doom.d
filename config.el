@@ -313,6 +313,8 @@ Version 2016-06-15"
 (global-set-key (kbd "C-M-<return>") 'duplicate-line)
 (global-set-key (kbd "C-}") 'xah-forward-block)
 (global-set-key (kbd "C-{") 'xah-backward-block)
+(global-set-key (kbd "M-/") #'hippie-expand)
+(global-set-key (kbd "M-s-f") #'forward-whitespace)
 
 ;; org ref
 (map! :leader
