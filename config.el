@@ -267,6 +267,8 @@ Version 2016-06-15"
    (kmacro-lambda-form [escape ?y ?s ?i ?w ?* ?e ?e ?a] 0 "%d"))
 (fset 'find-method
    (kmacro-lambda-form [escape ?\C-\M-a ?f ?\( ?h ?*] 0 "%d"))
+(fset 'paste-last-word
+   (kmacro-lambda-form [escape ?a ?  ?\C-r ?.] 0 "%d"))
 
 ;; Keybindings
 (with-eval-after-load 'python
@@ -284,6 +286,7 @@ Version 2016-06-15"
   (define-key python-mode-map (kbd "C-c /") 'find-method)
   (define-key python-mode-map (kbd "M-n") 'move-line-down)
   (define-key python-mode-map (kbd "M-p") 'move-line-up)
+  (define-key python-mode-map (kbd "C-c .") 'paste-last-word)
 )
 (with-eval-after-load 'comint
   (define-key comint-mode-map (kbd "C-c r") 'range)
@@ -315,6 +318,7 @@ Version 2016-06-15"
 (global-set-key (kbd "C-{") 'xah-backward-block)
 (global-set-key (kbd "M-/") #'hippie-expand)
 (global-set-key (kbd "M-s-f") #'forward-whitespace)
+(global-set-key (kbd "s-.") #'paste-last-word)
 
 ;; org ref
 (map! :leader
