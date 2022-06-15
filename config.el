@@ -254,9 +254,9 @@ Version 2016-06-15"
 (fset 'range
    (kmacro-lambda-form [?c ?i ?W ?r ?a ?n ?g ?e ?\( ?\C-r ?\" ?\) escape] 0 "%d"))
 (fset 'insert-pdb
-   (kmacro-lambda-form [?H ?D ?a ?t ?r ?y ?: return ?\C-r ?\" return ?e ?x ?c ?e ?p ?t ?: return escape ? ?i ?s ?p ?d ?b return escape ?= ?= ?o ?\C-r ?\" escape] 0 "%d"))
+   (kmacro-lambda-form [escape ?H ?D ?a ?t ?r ?y ?: return ?\C-r ?\" return ?e ?x ?c ?e ?p ?t ?: return escape ? ?i ?s ?p ?d ?b return escape ?= ?= ?o ?\C-r ?\" escape] 0 "%d"))
 (fset 'self
-   (kmacro-lambda-form [?o ?s ?e backspace backspace ?s ?e ?l ?f ?. ?\C-r ?0 ?  ?= ?  ?\C-r ?0 escape ?H] 0 "%d"))
+   (kmacro-lambda-form [escape ?o ?s ?e backspace backspace ?s ?e ?l ?f ?. ?\C-r ?0 ?  ?= ?  ?\C-r ?0 escape ?H] 0 "%d"))
 (fset 'wrap_symbol_python
    (kmacro-lambda-form [escape ?y ?s ?i ?W ?\) ?i] 0 "%d"))
 (fset 'wrap_symbol_org
@@ -313,6 +313,8 @@ Version 2016-06-15"
 (global-set-key (kbd "C-M-<return>") 'duplicate-line)
 (global-set-key (kbd "C-}") 'xah-forward-block)
 (global-set-key (kbd "C-{") 'xah-backward-block)
+(global-set-key (kbd "M-/") #'hippie-expand)
+(global-set-key (kbd "M-s-f") #'forward-whitespace)
 
 ;; org ref
 (map! :leader

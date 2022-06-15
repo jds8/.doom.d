@@ -6,7 +6,7 @@
 CONSECUTIVE {
     WORKOUT { 9:00min/mi, 3mi, 0deg },
     REPEAT { $1, CONSECUTIVE {
-        WORKOUT { 6:$2min/mi, $3mi, 5deg }, REST { $4min }
+        WORKOUT { 6:$2min/mi, $3mi, 0deg }, REST { $4min }
     } },
     WORKOUT { 8:30min/mi, 3mi, 0deg }
 }
