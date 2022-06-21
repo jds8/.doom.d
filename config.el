@@ -313,7 +313,6 @@ Version 2016-06-15"
 (global-set-key (kbd "C-M-<return>") 'duplicate-line)
 (global-set-key (kbd "C-}") 'xah-forward-block)
 (global-set-key (kbd "C-{") 'xah-backward-block)
-(global-set-key (kbd "M-/") #'hippie-expand)
 (global-set-key (kbd "M-s-f") #'forward-whitespace)
 
 ;; org ref
@@ -473,7 +472,7 @@ Version 2016-06-15"
 (pdf-loader-install)
 
 ;; Org
-(setq org-directory "~/OneDrive - UBC")
+;; (setq org-directory "~/OneDrive - UBC")
 (setq agenda-directory (file-name-as-directory org-directory))
 (setq notes-directory (concat (file-name-as-directory org-directory) "Notes"))
 (setq dailies-directory (concat (file-name-as-directory org-directory) "Dailies"))
