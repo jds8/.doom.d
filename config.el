@@ -76,6 +76,8 @@
 ;; window bindings
 (define-key evil-window-map (kbd "z") '(lambda ()(interactive) (evil-window-bottom-right) (evil-window-left 10)))
 (define-key evil-window-map (kbd "d") '(lambda ()(interactive) (evil-window-top-left) (evil-window-right 10)))
+(define-key evil-window-map (kbd "M-h") 'flip-window-left)
+(define-key evil-window-map (kbd "M-l") 'flip-window-right)
 
 ;; elisp functions
 (load! "string-lib")
@@ -273,6 +275,10 @@ Version 2016-06-15"
    (kmacro-lambda-form [escape ?y ?s ?i ?w ?* ?e ?e ?a] 0 "%d"))
 (fset 'find-method
    (kmacro-lambda-form [escape ?\C-\M-a ?f ?\( ?h ?*] 0 "%d"))
+(fset 'flip-window-right
+   (kmacro-lambda-form [escape ?\C-w ?L ?\C-w ?h] 0 "%d"))
+(fset 'flip-window-left
+   (kmacro-lambda-form [escape ?\C-w ?H ?\C-w ?l] 0 "%d"))
 
 ;; Keybindings
 (with-eval-after-load 'python
@@ -824,9 +830,18 @@ Version 2020-09-24 2021-01-21"
           (error "No recognized program file suffix for this file."))))
     (run-hooks 'xah-run-current-file-after-hook)))
 
+(defun xah-run-other-file ()
+  "Execute the other file"
+  (interactive)
+  (other-window 1)
+  (xah-run-current-file))
+
 (map! :leader
       :desc "Xah Run Current File"
       "f x" #'xah-run-current-file)
+(map! :leader
+      :desc "Xah Run Other File"
+      "f X" #'xah-run-other-file)
 
 ;; https://stackoverflow.com/questions/18102004/emacs-evil-mode-how-to-create-a-new-text-object-to-select-words-with-any-non-sp
 ;; Gordon Gustafson
