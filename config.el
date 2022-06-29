@@ -830,7 +830,8 @@ Version 2020-09-24 2021-01-21"
   "Execute the other file"
   (interactive)
   (other-window 1)
-  (xah-run-current-file))
+  (xah-run-current-file)
+  (other-window 1))
 
 (map! :leader
       :desc "Xah Run Current File"
