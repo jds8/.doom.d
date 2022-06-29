@@ -70,6 +70,8 @@
 (define-key evil-insert-state-map (kbd "C-n") 'next-line)      ;; was 'evil-complete-next
 (define-key evil-insert-state-map (kbd "C-p") 'previous-line)  ;; was 'evil-complete-previous
 (define-key evil-insert-state-map (kbd "C-k") 'kill-line)  ;; was 'evil-complete-previous
+(define-key evil-insert-state-map (kbd "C-=") 'text-scale-increase)  ;; was 'evil-complete-previous
+(define-key evil-insert-state-map (kbd "C--") 'text-scale-decrease)  ;; was 'evil-complete-previous
 
 ;; window bindings
 (define-key evil-window-map (kbd "z") '(lambda ()(interactive) (evil-window-bottom-right) (evil-window-left 10)))
@@ -233,6 +235,10 @@ Version 2016-06-15"
         (progn (goto-char (point-min))
                (setq $i n)))
       (setq $i (1+ $i)))))
+
+;; more instert mode keybindings
+(define-key evil-insert-state-map (kbd "M-n") 'move-line-down)  ;;
+(define-key evil-insert-state-map (kbd "M-p") 'move-line-up)  ;;
 
 ;; Define Macros
 (fset 'lively-macro
@@ -472,7 +478,7 @@ Version 2016-06-15"
 (pdf-loader-install)
 
 ;; Org
-;; (setq org-directory "~/OneDrive - UBC")
+(setq org-directory "~/OneDrive - UBC")
 (setq agenda-directory (file-name-as-directory org-directory))
 (setq notes-directory (concat (file-name-as-directory org-directory) "Notes"))
 (setq dailies-directory (concat (file-name-as-directory org-directory) "Dailies"))
