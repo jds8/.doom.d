@@ -238,10 +238,6 @@ Version 2016-06-15"
                (setq $i n)))
       (setq $i (1+ $i)))))
 
-;; more instert mode keybindings
-(define-key evil-insert-state-map (kbd "M-n") 'move-line-down)  ;;
-(define-key evil-insert-state-map (kbd "M-p") 'move-line-up)  ;;
-
 ;; Define Macros
 (fset 'lively-macro
    (kmacro-lambda-form [?a ?  escape ?  ?: ?l ?i ?v ?e ?l ?y return] 0 "%d"))
