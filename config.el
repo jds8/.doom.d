@@ -275,6 +275,10 @@ Version 2016-06-15"
    (kmacro-lambda-form [escape ?\C-w ?L ?\C-w ?h] 0 "%d"))
 (fset 'flip-window-left
    (kmacro-lambda-form [escape ?\C-w ?H ?\C-w ?l] 0 "%d"))
+(fset 'increment-number
+   (kmacro-lambda-form [escape ?V ?g ?= ?a] 0 "%d"))
+(fset 'decrement-number
+   (kmacro-lambda-form [escape ?V ?g ?- ?a] 0 "%d"))
 
 ;; Keybindings
 (with-eval-after-load 'python
@@ -292,6 +296,8 @@ Version 2016-06-15"
   (define-key python-mode-map (kbd "C-c /") 'find-method)
   (define-key python-mode-map (kbd "M-n") 'move-line-down)
   (define-key python-mode-map (kbd "M-p") 'move-line-up)
+  (define-key comint-mode-map (kbd "C-c =") 'increment-number)
+  (define-key comint-mode-map (kbd "C-c -") 'decrement-number)
 )
 (with-eval-after-load 'comint
   (define-key comint-mode-map (kbd "C-c r") 'range)
@@ -302,6 +308,8 @@ Version 2016-06-15"
   (define-key comint-mode-map (kbd "C-c w") 'wrap_symbol_python)
   (define-key comint-mode-map (kbd "C-c x") 'remove-function-call)
   (define-key comint-mode-map (kbd "C-c V") 'send-flattened-region-to-buffer)
+  (define-key comint-mode-map (kbd "C-c =") 'increment-number)
+  (define-key comint-mode-map (kbd "C-c -") 'decrement-number)
 )
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-c w") 'wrap_symbol_org)
