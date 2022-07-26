@@ -279,6 +279,10 @@ Version 2016-06-15"
    (kmacro-lambda-form [escape ?V ?g ?= ?a] 0 "%d"))
 (fset 'decrement-number
    (kmacro-lambda-form [escape ?V ?g ?- ?a] 0 "%d"))
+(fset 'enlarge-other-window
+   (kmacro-lambda-form [?\C-x ?o ?\C-= ?\C-x ?o] 0 "%d"))
+(fset 'shrink-other-window
+   (kmacro-lambda-form [?\C-x ?o ?\C-- ?\C-x ?o] 0 "%d"))
 
 ;; Keybindings
 (with-eval-after-load 'python
@@ -330,6 +334,8 @@ Version 2016-06-15"
 (global-set-key (kbd "C-}") 'xah-forward-block)
 (global-set-key (kbd "C-{") 'xah-backward-block)
 (global-set-key (kbd "M-s-f") #'forward-whitespace)
+(global-set-key (kbd "C-'") #'enlarge-other-window)
+(global-set-key (kbd "C-\"") #'shrink-other-window)
 
 ;; org ref
 (map! :leader
