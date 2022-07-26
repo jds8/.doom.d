@@ -334,8 +334,8 @@ Version 2016-06-15"
 (global-set-key (kbd "C-}") 'xah-forward-block)
 (global-set-key (kbd "C-{") 'xah-backward-block)
 (global-set-key (kbd "M-s-f") #'forward-whitespace)
-(global-set-key (kbd "C-x M-=") #'increase-text-size-other-window)
-(global-set-key (kbd "C-x M--") #'decrease-text-size-other-window)
+(global-set-key (kbd "s-=") #'increase-text-size-other-window)
+(global-set-key (kbd "s--") #'decrease-text-size-other-window)
 
 ;; org ref
 (map! :leader
