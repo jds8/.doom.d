@@ -283,6 +283,8 @@ Version 2016-06-15"
    (kmacro-lambda-form [?\C-x ?o ?\C-= ?\C-x ?o] 0 "%d"))
 (fset 'decrease-text-size-other-window
    (kmacro-lambda-form [?\C-x ?o ?\C-- ?\C-x ?o] 0 "%d"))
+(fset 'python-argument
+   (kmacro-lambda-form [escape ?y ?i ?w ?e ?a ?= ?\C-r ?\"] 0 "%d"))
 
 ;; Keybindings
 (with-eval-after-load 'python
@@ -300,8 +302,9 @@ Version 2016-06-15"
   (define-key python-mode-map (kbd "C-c /") 'find-method)
   (define-key python-mode-map (kbd "M-n") 'move-line-down)
   (define-key python-mode-map (kbd "M-p") 'move-line-up)
-  (define-key comint-mode-map (kbd "C-c =") 'increment-number)
-  (define-key comint-mode-map (kbd "C-c -") 'decrement-number)
+  (define-key python-mode-map (kbd "C-c =") 'increment-number)
+  (define-key python-mode-map (kbd "C-c -") 'decrement-number)
+  (define-key python-mode-map (kbd "C-c a") 'python-argument)
 )
 (with-eval-after-load 'comint
   (define-key comint-mode-map (kbd "C-c r") 'range)
