@@ -490,7 +490,7 @@ Version 2016-06-15"
 
 ;; cdlatex
 (add-hook 'latex-mode-hook 'turn-on-cdlatex)
-(add-hook 'org-mode-hook 'turn-on-cdlatex)
+;; (add-hook 'org-mode-hook 'turn-on-cdlatex)
 
 ;; For mac set option to meta
 (setq mac-right-option-modifier 'meta)
