@@ -268,7 +268,7 @@ Version 2016-06-15"
 (fset 'remove-function-call
    (kmacro-lambda-form [escape ?F ?\( ?h ?v ?i ?o ?d ?d ?s ?\(] 0 "%d"))
 (fset 'boldify
-   (kmacro-lambda-form [escape ?y ?s ?i ?w ?* ?e ?e ?a] 0 "%d"))
+   (kmacro-lambda-form [escape ?y ?s ?i ?W ?* ?e ?e ?a] 0 "%d"))
 (fset 'find-method
    (kmacro-lambda-form [escape ?\C-\M-a ?f ?\( ?h ?*] 0 "%d"))
 (fset 'flip-window-right
