@@ -285,6 +285,8 @@ Version 2016-06-15"
    (kmacro-lambda-form [?\C-x ?o ?\C-- ?\C-x ?o] 0 "%d"))
 (fset 'python-argument
    (kmacro-lambda-form [escape ?y ?i ?w ?e ?a ?= ?\C-r ?\"] 0 "%d"))
+(fset 'underbrace
+   (kmacro-lambda-form [?c ?\\ ?u ?n ?d ?e ?r ?b ?r ?a ?c ?e ?\{ ?\C-r ?\" ?\} ?\_ ?{ ?} ?\C-b] 0 "%d"))
 
 ;; Keybindings
 (with-eval-after-load 'python
@@ -321,6 +323,7 @@ Version 2016-06-15"
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-c w") 'wrap_symbol_org)
   (define-key org-mode-map (kbd "C-c b") 'boldify)
+  (define-key org-mode-map (kbd "C-c u") 'underbrace)
 )
 (global-set-key (kbd "C-x C-k") '(lambda ()(interactive) (kill-buffer nil)))
 (global-set-key (kbd "C-l") 'org-latex-preview)
