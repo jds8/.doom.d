@@ -238,26 +238,6 @@ Version 2016-06-15"
                (setq $i n)))
       (setq $i (1+ $i)))))
 
-;; PDFView
-;; https://babbagefiles.xyz/pdf-tools-dynamic-highlighting-colours/
-(defun bms/pdf-annot-colour-blue ()
-  (interactive)
-  (setq pdf-annot-default-markup-annotation-properties
-        '((label . "") (color . "blue") (popup-is-open)))
-  (message "%s" (propertize "Annotation colour set to blue." 'face '(:foreground "blue"))))
-
-(defun bms/pdf-annot-colour-red ()
-  (interactive)
-  (setq pdf-annot-default-markup-annotation-properties
-        '((label . "") (color . "red") (popup-is-open)))
-  (message "%s" (propertize "Annotation colour set to red." 'face '(:foreground "red"))))
-
-(defun bms/pdf-annot-colour-yellow ()
-  (interactive)
-  (setq pdf-annot-default-markup-annotation-properties
-        '((label . "") (color . "yellow") (popup-is-open)))
-  (message "%s" (propertize "Annotation colour set to yellow." 'face '(:foreground "yellow"))))
-
 ;; Define Macros
 (fset 'lively-macro
    (kmacro-lambda-form [?a ?  escape ?  ?: ?l ?i ?v ?e ?l ?y return] 0 "%d"))
@@ -488,14 +468,8 @@ Version 2016-06-15"
       :desc "insert note"
       "k i" 'org-noter-insert-note)
 (map! :leader
-      :desc "add yellow highlight (general)"
-      "k y" '(lambda () (interactive) (bms/pdf-annot-colour-yellow) (pdf-annot-add-highlight-markup-annotation (pdf-view-active-region))))
-(map! :leader
-      :desc "add red highlight (important)"
-      "k r" '(lambda () (interactive) (bms/pdf-annot-colour-red) (pdf-annot-add-highlight-markup-annotation (pdf-view-active-region))))
-(map! :leader
-      :desc "add blue highlight (keywords)"
-      "k b" '(lambda () (interactive) (bms/pdf-annot-colour-blue) (pdf-annot-add-highlight-markup-annotation (pdf-view-active-region))))
+      :desc "add highlight"
+      "k h" 'pdf-annot-add-highlight-markup-annotation)
 (map! :leader
       :desc "delete annotation"
       "k d" 'pdf-annot-delete)
