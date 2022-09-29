@@ -256,7 +256,7 @@ Version 2016-06-15"
 (fset 'wrap_fun
    (kmacro-lambda-form [?y ?s ?i ?o ?\) ?i ?\C-r ?f escape] 0 "%d"))
 (fset 'range
-   (kmacro-lambda-form [?c ?i ?W ?r ?a ?n ?g ?e ?\( ?\C-r ?\" ?\) escape] 0 "%d"))
+   (kmacro-lambda-form [?c ?t ?: ?r ?a ?n ?g ?e ?\( ?\C-r ?\" ?\) escape] 0 "%d"))
 (fset 'insert-pdb
    (kmacro-lambda-form [escape ?H ?D ?a ?t ?r ?y ?: return ?\C-r ?\" return ?e ?x ?c ?e ?p ?t ?: return escape ? ?i ?s ?p ?d ?b return escape ?= ?= ?o ?\C-r ?\" escape] 0 "%d"))
 (fset 'self
@@ -813,6 +813,7 @@ Version 2016-06-15"
    ("tex" . "pdflatex")
    ("latex" . "pdflatex")
    ("java" . "javac")
+   ("jl" . "julia")
    ;; ("pov" . "/usr/local/bin/povray +R2 +A0.1 +J1.2 +Am2 +Q9 +H480 +W640")
    ))
 (defun xah-run-current-file ()
