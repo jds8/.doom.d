@@ -507,7 +507,7 @@ Version 2016-06-15"
 
 ;; Org
 (setq org-directory "~/OneDrive - UBC")
-(setq agenda-directory (file-name-as-directory org-directory))
+(setq agenda-directory (concat (file-name-as-directory org-directory) "Agenda")
 (setq notes-directory (concat (file-name-as-directory org-directory) "Notes"))
 (setq dailies-directory (concat (file-name-as-directory org-directory) "Dailies"))
 (setq org-agenda-files (directory-files-recursively agenda-directory "\\.org$"))
