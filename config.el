@@ -507,7 +507,7 @@ Version 2016-06-15"
 
 ;; Org
 (setq org-directory "~/OneDrive - UBC")
-(setq agenda-directory (concat (file-name-as-directory org-directory) "Agenda")
+(setq agenda-directory (concat (file-name-as-directory org-directory) "Agenda"))
 (setq notes-directory (concat (file-name-as-directory org-directory) "Notes"))
 (setq dailies-directory (concat (file-name-as-directory org-directory) "Dailies"))
 (setq org-agenda-files (directory-files-recursively agenda-directory "\\.org$"))
@@ -545,7 +545,7 @@ Version 2016-06-15"
                         "#+LATEX_HEADER: \\usepackage{bbm}\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsthm}\n\n"
                         "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n\n"
-                        "* Valuable Terminology\n\n"
+                        "* Definitions and Valuable Terminology\n\n"
                         "* Notes"))
          :unnarrowed t)
         ("c" "Class" plain
@@ -559,7 +559,7 @@ Version 2016-06-15"
                         "#+LATEX_HEADER: \\usepackage{bbm}\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsthm}\n\n"
                         "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n\n"
-                        "* Valuable Terminology\n\n"
+                        "* Definitions and Valuable Terminology\n\n"
                         "* Notes"))
          :unnarrowed t)
         ("n" "Running" plain
