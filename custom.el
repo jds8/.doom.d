@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '("~/org/Agenda/todo.org"))
+   '("~/org/Agenda/tomorrow.org" "~/org/Agenda/todo.org"))
  '(package-selected-packages '(ox-hugo hugo)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
