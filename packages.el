@@ -38,6 +38,9 @@
 (package! beacon
   :recipe (:host github :repo "Malabarba/beacon"))
 
+(package! pyenc
+  :recipe (:host github :repo "jorgenschaefer/pyvenv"))
+
 (package! ivy-bibtex)
 (package! org-ref)
 (package! org-noter)
