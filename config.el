@@ -75,7 +75,7 @@
 
 ;; window bindings
 (define-key evil-window-map (kbd "z") '(lambda ()(interactive) (evil-window-bottom-right) (evil-window-left 10)))
-(define-key evil-window-map (kbd "d") '(lambda ()(interactive) (evil-window-top-left) (evil-window-right 10)))
+(define-key evil-window-map (kbd "d") '(lambda ()(interactive) (evil-window-top-left) (evil-window-right 10)))  ;; was 'evil-window-delete
 (define-key evil-window-map (kbd "M-h") 'flip-window-left)
 (define-key evil-window-map (kbd "M-l") 'flip-window-right)
 
