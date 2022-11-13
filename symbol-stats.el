@@ -2,6 +2,25 @@
 
 (require 'cl-lib)
 
+;; utils
+(defun symbol-stats/any (v lst) (seq-reduce #'(lambda (truth-val p) (or (eq p v) truth-val)) lst nil))
+(defun symbol-stats/contains-elements (lst elements)
+  (cond ((eq elements nil) t)
+        ((and (not (listp elements)) (-contains? lst elements)) t)
+        ((and (not (listp elements)) (not (-contains? lst elements))) nil)
+        (t (and (-contains? lst (car elements)) (contains-elements lst (cdr elements))))))
+(defun symbol-stats/single-set-diff-helper (lst element nonelements)
+  (cond ((eq lst nil) nonelements)
+        ((eq (car lst) element) (append nonelements (cdr lst)))
+        (t (symbol-stats/set-diff-helper (cdr lst) element (cons (car lst) nonelements)))
+  ))
+(defun symbol-stats/set-diff-helper (lst elements nonelements)
+  (cond ((eq lst nil) nonelements)
+        ((symbol-stats/contains-elements elements (car lst)) (symbol-stats/set-diff-helper (cdr lst) elements nonelements))
+        (t (symbol-stats/set-diff-helper (cdr lst) elements (cons (car lst) nonelements)))
+  ))
+(defun symbol-stats/set-diff (lst elements) (symbol-stats/set-diff-helper lst elements '()))
+
 ;; append and remove symbols for differential: 'd 'z => 'dz and 'dz => 'z
 (defun symbol-stats/symbol-append (&rest symbols)
   (intern (apply #'concatenate 'string
@@ -68,6 +87,70 @@
 (defun symbol-stats/vars (t1) (cdr t1))
 (defun symbol-stats/get-dist (p) (if (equal (symbol-stats/symbol-end p) 'dist) p (symbol-stats/symbol-append p 'dist)))
 (defun symbol-stats/make-dist (p left right) (list (symbol-stats/get-dist p) left right))
+(defun symbol-stats/conditions-on (pd vars) (symbol-stats/contains-elements (caddr pd) vars))
+
+;; Bayes' Rule
+(defun symbol-stats/bayes-rule-from-posterior (posterior prior-rhs)
+  (let ((posterior-vars (cadr posterior)))
+    (let ((likelihood-lhs (symbol-stats/set-diff (caddr posterior) prior-rhs)))
+      (let ((likelihood (symbol-stats/make-dist 'p likelihood-lhs (append posterior-vars prior-rhs)))
+            (prior (symbol-stats/make-dist 'p posterior-vars prior-rhs))
+            (evidence (symbol-stats/make-dist 'p likelihood-lhs prior-rhs)))
+        (symbol-stats/multiply (symbol-stats/divide likelihood evidence) prior)))))
+(defun symbol-stats/bayes-rule-to-posterior-helper (likelihood prior evidence)
+  (let ((lhs (cadr prior))
+        (rhs (append (cadr likelihood) (caddr prior))))
+   (symbol-stats/make-dist (car prior) lhs rhs)))
+;; assume that multiplication cannot occur in a denominator
+(defun symbol-stats/get-bayes-terms (term1 term2 term3)
+  (let ((term1-lhs (cadr term1))
+        (term1-rhs (caddr term1))
+        (term2-lhs (cadr term2))
+        (term2-rhs (caddr term2))
+        (term3-lhs (cadr term3))
+        (term3-rhs (caddr term3)))
+    (cond ((equal term1-lhs term2-lhs)
+           (cond ((> (length term1-rhs) (length term2-rhs))
+                 (let ((prior term3)
+                       (evidence term2)
+                       (likelihood term1))
+                   (list prior evidence likelihood)))
+                 (t (let ((prior term3)
+                       (evidence term1)
+                       (likelihood term2))
+                   (list prior evidence likelihood)))
+                 ))
+          ((equal term1-lhs term3-lhs)
+           (cond ((> (length term1-rhs) (length term3-rhs))
+                 (let ((prior term2)
+                       (evidence term3)
+                       (likelihood term1))
+                   (list prior evidence likelihood)))
+                (t (let ((prior term2)
+                       (evidence term1)
+                       (likelihood term3))
+                   (list prior evidence likelihood)))
+                 ))
+          (t (cond ((> (length term2-rhs) (length term3-rhs))
+                    (let ((prior term1)
+                          (evidence term3)
+                          (likelihood term2))
+                      (list prior evidence likelihood)))
+                   (t (let ((prior term1)
+                       (evidence term2)
+                       (likelihood term3))
+                   (list prior evidence likelihood))))))))
+(defun symbol-stats/bayes-rule-to-posterior (terms)
+  (cond ((symbol-stats/is-mul terms)
+         (cond ((symbol-stats/is-div (cadr terms))
+               (let ((term1 (caddr terms))
+                     (term2 (cadr (cadr terms)))
+                     (term3 (caddr (cadr terms))))
+                     (let ((bayes-terms (symbol-stats/get-bayes-terms term1 term2 term3)))
+                       (let ((prior (car bayes-terms))
+                             (evidence (cadr bayes-terms))
+                             (likelihood (caddr bayes-terms)))
+                         (symbol-stats/bayes-rule-to-posterior-helper likelihood prior evidence)))))))))
 
 ;; create entropy
 (defun symbol-stats/entropy (v1 v2) (list 'H v1 v2))
@@ -101,11 +184,8 @@
 (defun symbol-stats/is-expectation (t1) (eq (car t1) 'E))
 (defun symbol-stats/full-term-is-expectation (ft) (symbol-stats/is-expectation (full-term-term ft)))
 
-;; utils
-(defun symbol-stats/any (v lst) (seq-reduce #'(lambda (truth-val p) (or (eq p v) truth-val)) lst nil))
-
 ;; marginalization
-(defun symbol-stats/marginalize (p var) (symbol-stats/make-int (symbol-stats/make-dist (car p) (cons var (cadr p)) (list (caddr p))) var))
+(defun symbol-stats/marginalize (p var) (symbol-stats/make-int (symbol-stats/make-dist (car p) (cons var (cadr p)) (caddr p)) var))
 (defun symbol-stats/can-marginalize (p var) (and (not (symbol-stats/any var (cadr p))) (not (symbol-stats/any var (caddr p))) ))
 (defun symbol-stats/can-marginalize-any (p vars) (mapcar #'(lambda (v) (symbol-stats/can-marginalize p v)) vars))
 (defun symbol-stats/try-marginalize-one (can-marg-vars vars p) (if (eq can-marg-vars nil) p
@@ -131,7 +211,7 @@
 
 ;; multiplcation by one
 (defun symbol-stats/mult-one (t1 p)
-  (cond ((is-int t1) (make-int (mult-one (symbol-stats/integrand t1) p) (symbol-stats/differential t1)))
+  (cond ((symbol-stats/is-int t1) (symbol-stats/make-int (symbol-stats/multiply (symbol-stats/divide (symbol-stats/integrand t1) p) p) (symbol-stats/differential t1)))
         (t t1)
   ))
 
@@ -155,17 +235,32 @@
 (symbol-stats/full-term-cadr ftt)
 (symbol-stats/full-term-caddr ftt)
 
-(setq data (symbol-stats/make-dist 'p (list 'x 'h) 'y))
+(setq data (symbol-stats/make-dist 'p (list 'x 'h) (list 'y 'z)))
 (symbol-stats/are-equal data (symbol-stats/denom (symbol-stats/divide data data)))
-(setq I (symbol-stats/marginalize data 'z))
+(setq I (symbol-stats/marginalize data 'w))
 (symbol-stats/is-dist (symbol-stats/integrand I))
 (symbol-stats/make-expectation (symbol-stats/multiply data (symbol-stats/log data)) 'q)
 
 (symbol-stats/integrand I)
 (symbol-stats/differential I)
-(symbol-stats/mult-one I (symbol-stats/make-dist 'q 'z nil))
+(symbol-stats/mult-one I (symbol-stats/make-dist 'q (list 'w) (list 'x 'h)))
 
 (setq pd (symbol-stats/make-dist 'p (list 'x) (list 'z)))
 (symbol-stats/try-marginalize pd (list 'y 'z))
 
+(symbol-stats/bayes-rule-from-posterior data (list 'y))
+
+(setq prior (symbol-stats/make-dist 'p (list 'z) (list 'y)))
+(setq likelihood (symbol-stats/make-dist 'p (list 'x) (list 'z 'y)))
+(setq evidence (symbol-stats/make-dist 'p (list 'x) (list 'y)))
+(symbol-stats/bayes-rule-to-posterior-helper likelihood prior evidence)
+
+(symbol-stats/get-bayes-terms evidence likelihood prior)
+(symbol-stats/get-bayes-terms evidence prior likelihood)
+(symbol-stats/get-bayes-terms likelihood evidence prior)
+(symbol-stats/get-bayes-terms likelihood prior evidence)
+(symbol-stats/get-bayes-terms prior evidence likelihood)
+(symbol-stats/get-bayes-terms prior likelihood evidence)
+
+(symbol-stats/bayes-rule-to-posterior (symbol-stats/multiply (symbol-stats/divide likelihood evidence) prior))
 (provide 'symbol-stats)
