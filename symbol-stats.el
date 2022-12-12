@@ -194,6 +194,8 @@
                                                                    (symbol-stats/try-marginalize-one (cdr can-marg-vars) (cdr vars) p))))
 (defun symbol-stats/try-marginalize (p vars) (let ((can-marg-vars (symbol-stats/can-marginalize-any p vars))) (symbol-stats/try-marginalize-one can-marg-vars vars p)))
 
+;; TODO expectation of score function is 0
+
 ;; TODO if ft is (+ t1 t2) then want to return (+ (marginalize t1) t2) if (not (eq (marginalize t1) t1)) and (+ t1 (marginalize t2)) otherwise
 (defun symbol-stats/marginalize-full-term (ft)
   (let ((p (full-term-term ft)) (vars (full-term-joint-vars ft)))

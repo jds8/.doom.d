@@ -53,6 +53,9 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; exec-path
+(setq exec-path (append exec-path '("/home/jsefas/driving-models/venv/bin/")))
+
 ;; evil
 (with-eval-after-load 'evil-maps
   (define-key evil-motion-state-map (kbd "H") 'evil-first-non-blank))
@@ -307,6 +310,7 @@ Version 2016-06-15"
   (define-key python-mode-map (kbd "C-c =") 'increment-number)
   (define-key python-mode-map (kbd "C-c -") 'decrement-number)
   (define-key python-mode-map (kbd "C-c a") 'python-argument)
+  (define-key python-mode-map (kbd "C-c q") 'chatgpt-query)
 )
 (with-eval-after-load 'comint
   (define-key comint-mode-map (kbd "C-c r") 'range)
@@ -324,6 +328,7 @@ Version 2016-06-15"
   (define-key org-mode-map (kbd "C-c w") 'wrap_symbol_org)
   (define-key org-mode-map (kbd "C-c b") 'boldify)
   (define-key org-mode-map (kbd "C-c u") 'underbrace)
+  (define-key org-mode-map (kbd "C-c q") 'chatgpt-query)
 )
 
 (global-set-key (kbd "C-x C-k") '(lambda ()(interactive) (kill-buffer nil)))
@@ -504,9 +509,10 @@ Version 2016-06-15"
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 (pdf-loader-install)
 
+(print exec-path)
 
 ;; Org
-(setq org-directory "~/OneDrive - UBC")
+;; (setq org-directory "~/OneDrive - UBC")
 (setq agenda-directory (concat (file-name-as-directory org-directory) "Agenda"))
 (setq notes-directory (concat (file-name-as-directory org-directory) "Notes"))
 (setq dailies-directory (concat (file-name-as-directory org-directory) "Dailies"))
@@ -925,3 +931,14 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 
 ;; tells you which function you're in
 (which-function-mode)
+
+;; chatgpt.el
+(setq chatgpt-query-types '(
+                            ;; ChatGPT.el defaults
+                            ("doc" . "Please write the documentation for the following function.\n\n%s")
+                            ("bug" . "There is a bug in the following function, please help me fix it.\n\n%s")
+                            ("understand" . "What does the following function do?\n\n%s")
+                            ("improve" . "Please improve the following code.\n\n%s")
+                            ;; your new prompt
+                            ("my-custom-type" . "My custom prompt.\n\n%s")))
+(setq chatgpt-repo-path "~/.emacs.d/straight/repos/ChatGPT.el/")
