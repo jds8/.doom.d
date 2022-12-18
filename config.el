@@ -54,7 +54,9 @@
 ;; they are implemented.
 
 ;; exec-path
-(setq exec-path (append exec-path '("/home/jsefas/driving-models/venv/bin/")))
+(setq dm-path "/home/jsefas/driving-models/venv/bin/")
+(setq exec-path (append exec-path `(,dm-path)))
+(setq python-shell-interpreter (concat dm-path "python3"))
 
 ;; evil
 (with-eval-after-load 'evil-maps
