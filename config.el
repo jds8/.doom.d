@@ -935,12 +935,12 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 (which-function-mode)
 
 ;; chatgpt.el
-(setq chatgpt-query-types '(
-                            ;; ChatGPT.el defaults
-                            ("doc" . "Please write the documentation for the following function.\n\n%s")
-                            ("bug" . "There is a bug in the following function, please help me fix it.\n\n%s")
-                            ("understand" . "What does the following function do?\n\n%s")
-                            ("improve" . "Please improve the following code.\n\n%s")
-                            ;; your new prompt
-                            ("my-custom-type" . "My custom prompt.\n\n%s")))
-(setq chatgpt-repo-path "~/.emacs.d/straight/repos/ChatGPT.el/")
+(use-package! chatgpt
+  :defer t
+  :config
+  (unless (boundp 'python-interpreter)
+    (defvaralias 'python-interpreter 'python-shell-interpreter))
+  (setq chatgpt-repo-path (expand-file-name "~/.emacs.d/.local/straight/repos/ChatGPT.el/" doom-local-dir))
+  (set-popup-rule! (regexp-quote "*ChatGPT*")
+    :side 'bottom :size .5 :ttl nil :quit t :modeline nil)
+  :bind ("C-c q" . chatgpt-query))
