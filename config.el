@@ -944,3 +944,15 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
   (set-popup-rule! (regexp-quote "*ChatGPT*")
     :side 'bottom :size .5 :ttl nil :quit t :modeline nil)
   :bind ("C-c q" . chatgpt-query))
+
+;;
+(defun my-paste-squeue-output (server-name)
+  "SSH into SERVER-NAME and paste 'squeue -u j' output at point in the current buffer."
+  (interactive "sEnter server name: ")
+  (let ((output-buffer (generate-new-buffer "*squeue-output*")))
+    (shell-command (concat "ssh " server-name " squeue -u jsefas1") output-buffer)
+    (switch-to-buffer output-buffer)
+    (goto-char (point-min))
+    (kill-ring-save (point-min) (point-max))
+    (kill-buffer output-buffer)
+    (yank)))
