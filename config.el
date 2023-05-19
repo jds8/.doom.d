@@ -957,11 +957,10 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
     (kill-buffer output-buffer)
     (yank)))
 
-(defun my-ssh-and-open-file ()
+(defun my-ssh-and-open-file (word)
   (interactive)
   (let* ((server-options '("idk" "borg" "cedar" "narval" "beluga"))
-         (server (completing-read "Select a server: " server-options))
-         (word (thing-at-point 'symbol)))
+         (server (completing-read "Select a server: " server-options)))
     (if (string-empty-p server)
         (message "No server selected.")
       (if (equal server "idk")
@@ -984,3 +983,9 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
           (when matching-files
             (find-file (car matching-files))
             (setq-local remote-file-name tramp-path)))))))
+
+;; (defil TYPE START-DELIM END-DELIM TEXT-REGEXP LINK-EXPR &optional
+;; START-REGEXP-FLAG END-REGEXP-FLAG DOC)
+;; manual: https://www.gnu.org/software/hyperbole/man/hyperbole.pdf
+(require 'hyperbole)
+(defil my-ssh-open-file-button " " "" "[0-9]+" '(lambda (x) (my-ssh-and-open-file x)))
