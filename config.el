@@ -53,6 +53,11 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; exec-path
+(setq dm-path "/home/jsefas/driving-models/venv/bin/")
+(setq exec-path (append exec-path `(,dm-path)))
+(setq python-shell-interpreter (concat dm-path "python3"))
+
 ;; evil
 (with-eval-after-load 'evil-maps
   (define-key evil-motion-state-map (kbd "H") 'evil-first-non-blank))
@@ -75,7 +80,7 @@
 
 ;; window bindings
 (define-key evil-window-map (kbd "z") '(lambda ()(interactive) (evil-window-bottom-right) (evil-window-left 10)))
-(define-key evil-window-map (kbd "d") '(lambda ()(interactive) (evil-window-top-left) (evil-window-right 10)))
+(define-key evil-window-map (kbd "d") '(lambda ()(interactive) (evil-window-top-left) (evil-window-right 10)))  ;; was 'evil-window-delete
 (define-key evil-window-map (kbd "M-h") 'flip-window-left)
 (define-key evil-window-map (kbd "M-l") 'flip-window-right)
 
@@ -307,6 +312,7 @@ Version 2016-06-15"
   (define-key python-mode-map (kbd "C-c =") 'increment-number)
   (define-key python-mode-map (kbd "C-c -") 'decrement-number)
   (define-key python-mode-map (kbd "C-c a") 'python-argument)
+  (define-key python-mode-map (kbd "C-c q") 'chatgpt-query)
 )
 (with-eval-after-load 'comint
   (define-key comint-mode-map (kbd "C-c r") 'range)
@@ -324,6 +330,7 @@ Version 2016-06-15"
   (define-key org-mode-map (kbd "C-c w") 'wrap_symbol_org)
   (define-key org-mode-map (kbd "C-c b") 'boldify)
   (define-key org-mode-map (kbd "C-c u") 'underbrace)
+  (define-key org-mode-map (kbd "C-c q") 'chatgpt-query)
 )
 
 (global-set-key (kbd "C-x C-k") '(lambda ()(interactive) (kill-buffer nil)))
@@ -504,10 +511,11 @@ Version 2016-06-15"
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
 (pdf-loader-install)
 
+(print exec-path)
 
 ;; Org
-(setq org-directory "~/OneDrive - UBC")
-(setq agenda-directory (file-name-as-directory org-directory))
+;; (setq org-directory "~/OneDrive - UBC")
+(setq agenda-directory (concat (file-name-as-directory org-directory) "Agenda"))
 (setq notes-directory (concat (file-name-as-directory org-directory) "Notes"))
 (setq dailies-directory (concat (file-name-as-directory org-directory) "Dailies"))
 (setq org-agenda-files (directory-files-recursively agenda-directory "\\.org$"))
@@ -545,7 +553,7 @@ Version 2016-06-15"
                         "#+LATEX_HEADER: \\usepackage{bbm}\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsthm}\n\n"
                         "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n\n"
-                        "* Valuable Terminology\n\n"
+                        "* Definitions and Valuable Terminology\n\n"
                         "* Notes"))
          :unnarrowed t)
         ("c" "Class" plain
@@ -559,7 +567,7 @@ Version 2016-06-15"
                         "#+LATEX_HEADER: \\usepackage{bbm}\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsthm}\n\n"
                         "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n\n"
-                        "* Valuable Terminology\n\n"
+                        "* Definitions and Valuable Terminology\n\n"
                         "* Notes"))
          :unnarrowed t)
         ("n" "Running" plain
@@ -925,6 +933,29 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 
 ;; tells you which function you're in
 (which-function-mode)
+
+;; chatgpt.el
+(use-package! chatgpt
+  :defer t
+  :config
+  (unless (boundp 'python-interpreter)
+    (defvaralias 'python-interpreter 'python-shell-interpreter))
+  (setq chatgpt-repo-path (expand-file-name "~/.emacs.d/.local/straight/repos/ChatGPT.el/" doom-local-dir))
+  (set-popup-rule! (regexp-quote "*ChatGPT*")
+    :side 'bottom :size .5 :ttl nil :quit t :modeline nil)
+  :bind ("C-c q" . chatgpt-query))
+
+;;
+(defun my-paste-squeue-output (server-name)
+  "SSH into SERVER-NAME and paste 'squeue -u j' output at point in the current buffer."
+  (interactive "sEnter server name: ")
+  (let ((output-buffer (generate-new-buffer "*squeue-output*")))
+    (shell-command (concat "ssh " server-name " squeue -u jsefas1") output-buffer)
+    (switch-to-buffer output-buffer)
+    (goto-char (point-min))
+    (kill-ring-save (point-min) (point-max))
+    (kill-buffer output-buffer)
+    (yank)))
 
 (defun my-ssh-and-open-file ()
   (interactive)

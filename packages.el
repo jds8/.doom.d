@@ -38,6 +38,25 @@
 (package! beacon
   :recipe (:host github :repo "Malabarba/beacon"))
 
+(package! pyenc
+  :recipe (:host github :repo "jorgenschaefer/pyvenv"))
+
+(package! emacs-epc
+  :recipe (:host github :repo "kiwanami/emacs-epc"))
+
+(package! emacs-deferred
+  :recipe (:host github :repo "kiwanami/emacs-deferred"))
+
+(package! emacs-ctable
+  :recipe (:host github :repo "kiwanami/emacs-ctable"))
+
+(package! chatgpt
+  :recipe (:host github :repo "joshcho/ChatGPT.el"
+                 :files ("dist" "*.el")))
+
+(package! hyperbole
+  :recipe (:host github :repo "rswgnu/hyperbole"))
+
 (package! ivy-bibtex)
 (package! org-ref)
 (package! org-noter)
