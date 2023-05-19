@@ -925,3 +925,31 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 
 ;; tells you which function you're in
 (which-function-mode)
+
+(defun my-ssh-and-open-file ()
+  (interactive)
+  (let* ((server-options '("idk" "borg" "cedar" "narval" "beluga"))
+         (server (completing-read "Select a server: " server-options))
+         (word (thing-at-point 'symbol)))
+    (if (string-empty-p server)
+        (message "No server selected.")
+      (if (equal server "idk")
+          (progn
+            (dolist (option server-options)
+              (unless (equal option "idk")
+                (let ((ssh-command (format "ssh %s" option))
+                      (tramp-path (format "/ssh:%s:~/scratch" option))
+                      (matching-files (directory-files (format "/ssh:%s:~/scratch" option) t (concat ".*" word ".*"))))
+                  (when matching-files
+                    (shell-command ssh-command)
+                    (find-file (car matching-files))
+                    (setq-local remote-file-name tramp-path))
+                  (unless (string-empty-p (buffer-name))
+                    (return))))))
+        (let ((ssh-command (format "ssh %s" server))
+              (tramp-path (format "/ssh:%s:~/scratch" server))
+              (matching-files (directory-files (format "/ssh:%s:~/scratch" server) t (concat ".*" word ".*"))))
+          (shell-command ssh-command)
+          (when matching-files
+            (find-file (car matching-files))
+            (setq-local remote-file-name tramp-path)))))))
