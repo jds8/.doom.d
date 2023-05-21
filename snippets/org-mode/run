@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: run
+# key: run
+# --
+** name: $1
+- cluster: $2
+- slurm-{}.out: $3
+- train/test: $4
+- params: $5
+- checkpoint: $6
+- branch: $7
+- wandb code: $8
+- dataset: $9
+- time: $10
+- details (# runs, # future_traj_samples, code changes, etc.): $0
