@@ -991,5 +991,5 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 (require 'hyperbole)
 (defil my-ssh-open-file-button " " "\s" "[0-9]+" '(lambda (x) (my-ssh-and-open-file x)))
 (defil wandb-code-button " " "\s" "[a-z0-9]*[a-z][a-z0-9]*" '(lambda (x)
-                                               (hyperbole-web-search
+                                               (browse-url
                                                 (format "https://wandb.ai/iai/itra/runs/%s" x))))
