@@ -292,6 +292,8 @@ Version 2016-06-15"
    (kmacro-lambda-form [escape ?y ?i ?w ?e ?a ?= ?\C-r ?\"] 0 "%d"))
 (fset 'underbrace
    (kmacro-lambda-form [?c ?\\ ?u ?n ?d ?e ?r ?b ?r ?a ?c ?e ?\{ ?\C-r ?\" ?\} ?\_ ?{ ?} ?\C-b] 0 "%d"))
+(fset 'find-string
+   (kmacro-lambda-form [escape ?y ?i ?\" ?\\ ?\C-r ?\" return] 0 "%d"))
 
 ;; Keybindings
 (with-eval-after-load 'python
@@ -313,6 +315,7 @@ Version 2016-06-15"
   (define-key python-mode-map (kbd "C-c -") 'decrement-number)
   (define-key python-mode-map (kbd "C-c a") 'python-argument)
   (define-key python-mode-map (kbd "C-c q") 'chatgpt-query)
+  (define-key python-mode-map (kbd "C-c \"") 'find-string)
 )
 (with-eval-after-load 'comint
   (define-key comint-mode-map (kbd "C-c r") 'range)
@@ -989,7 +992,7 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 ;; START-REGEXP-FLAG END-REGEXP-FLAG DOC)
 ;; manual: https://www.gnu.org/software/hyperbole/man/hyperbole.pdf
 (require 'hyperbole)
-(defil my-ssh-open-file-button " " "\s" "[0-9]+" '(lambda (x) (my-ssh-and-open-file x)))
-(defil wandb-code-button " " "\s" "[a-z0-9]*[a-z][a-z0-9]*" '(lambda (x)
+(defil my-ssh-open-file-button " " "\s" "[:digit:]+" '(lambda (x) (my-ssh-and-open-file x)))
+(defil wandb-code-button " " "\s" "[:alnum:]*" '(lambda (x)
                                                (browse-url
                                                 (format "https://wandb.ai/iai/itra/runs/%s" x))))
