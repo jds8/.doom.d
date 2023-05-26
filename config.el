@@ -484,7 +484,6 @@ Version 2016-06-15"
       :desc "delete annotation"
       "k d" 'pdf-annot-delete)
 
-
 ;; Yapf on save
 ;; (add-hook 'python-mode-hook 'yapf-mode)
 
@@ -708,6 +707,7 @@ Version 2016-06-15"
 ;; org-noter
 (setq research-directory (concat (file-name-as-directory notes-directory) "Research"))
 (setq org-noter-notes-search-path (list research-directory))
+(setq org-noter-always-create-frame 0)
 
 ;; org-mind-map
 (require 'ox-org)
@@ -960,11 +960,10 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
     (kill-buffer output-buffer)
     (yank)))
 
-(defun my-ssh-and-open-file (x)
+(defun my-ssh-and-open-file (word)
   (interactive)
   (let* ((server-options '("borg" "cedar" "narval" "beluga" "idk"))
-         (server (completing-read "Select a server: " server-options))
-         (word (thing-at-point 'symbol)))
+         (server (completing-read "Select a server: " server-options)))
     (if (string-empty-p server)
         (message "No server selected.")
       (if (equal server "idk")
@@ -992,7 +991,57 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 ;; START-REGEXP-FLAG END-REGEXP-FLAG DOC)
 ;; manual: https://www.gnu.org/software/hyperbole/man/hyperbole.pdf
 (require 'hyperbole)
-(defil my-ssh-open-file-button " " "\s" "[:digit:]+" '(lambda (x) (my-ssh-and-open-file x)))
-(defil wandb-code-button " " "\s" "[:alnum:]*" '(lambda (x)
+(defil my-ssh-open-file-button " " "\s" "[0-9]+" '(lambda (x) (my-ssh-and-open-file x)))
+(defil wandb-code-button " " "" "[:alnum:]*" '(lambda (x)
                                                (browse-url
                                                 (format "https://wandb.ai/iai/itra/runs/%s" x))))
+
+(defun find-longest-substring (delimiter)
+  "Search for the longest substring between two instances of DELIMITER on the current line and perform an Evil search with the longest substring as the search pattern."
+  (interactive "cDelimiter character: ")
+  (save-excursion
+    (beginning-of-line)
+    (let* ((start (point))
+           (end (progn (end-of-line) (point)))
+           (line (buffer-substring-no-properties start end))
+           (substrings (split-string line (string delimiter))))
+      (if (> (length substrings) 1)
+          (progn
+            (setq substrings (cdr (reverse  (cdr substrings))))
+            (setq longest-substring (car substrings))
+            (setq longest-length (length longest-substring))
+            (dolist (substring (cdr (reverse (cdr substrings))))
+              (let ((substring-length (length substring)))
+                (when (> substring-length longest-length)
+                  (setq longest-substring substring)
+                  (setq longest-length substring-length)))))
+        (message "No substring found between '%c' characters on the current line."))
+      (when (and (> longest-length 0) (stringp longest-substring))
+        (evil-search (format "\\<%s\\>" (regexp-quote longest-substring)) 2 t))
+      (evil-search-next)
+      longest-substring)))
+
+(search-forward "asdf")
+
+asdfasdfasdf"longest"asdf
+
+(defun my-evil-search-last-word-on-line ()
+  "Invoke Evil search for the last word on the current line across the entire file."
+  (interactive)
+  (let ((last-word (save-excursion
+                     (end-of-line)
+                     (backward-word)
+                     (thing-at-point 'word))))
+    (evil-search (format "\\<%s\\>" (regexp-quote last-word)) 2 t))
+  (evil-search-next)
+  )
+
+
+
+asd wu to notify this person of what append
+
+notysothis person wi
+
+asdf append fdsa
+
+sdflkjasd append append
