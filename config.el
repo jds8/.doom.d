@@ -992,7 +992,7 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
 ;; START-REGEXP-FLAG END-REGEXP-FLAG DOC)
 ;; manual: https://www.gnu.org/software/hyperbole/man/hyperbole.pdf
 (require 'hyperbole)
-(defil my-ssh-open-file-button " " "\s" "[:digit:]+" '(lambda (x) (my-ssh-and-open-file x)))
-(defil wandb-code-button " " "\s" "[:alnum:]*" '(lambda (x)
+(defil my-ssh-open-file-button " " "" "[:digit:]*" '(lambda (x) (my-ssh-and-open-file x)))
+(defil wandb-code-button " " "" "[:alnum:]*[a-z][:alnum:]*" '(lambda (x)
                                                (browse-url
                                                 (format "https://wandb.ai/iai/itra/runs/%s" x))))
