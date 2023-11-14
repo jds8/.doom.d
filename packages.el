@@ -54,9 +54,6 @@
   :recipe (:host github :repo "joshcho/ChatGPT.el"
                  :files ("dist" "*.el")))
 
-(package! hyperbole
-  :recipe (:host github :repo "rswgnu/hyperbole"))
-
 (package! ivy-bibtex)
 (package! org-ref)
 (package! org-noter)

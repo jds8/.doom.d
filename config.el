@@ -1021,10 +1021,6 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
       (evil-search-next)
       longest-substring)))
 
-(search-forward "asdf")
-
-asdfasdfasdf"longest"asdf
-
 (defun my-evil-search-last-word-on-line ()
   "Invoke Evil search for the last word on the current line across the entire file."
   (interactive)
@@ -1035,13 +1031,3 @@ asdfasdfasdf"longest"asdf
     (evil-search (format "\\<%s\\>" (regexp-quote last-word)) 2 t))
   (evil-search-next)
   )
-
-
-
-asd wu to notify this person of what append
-
-notysothis person wi
-
-asdf append fdsa
-
-sdflkjasd append append
