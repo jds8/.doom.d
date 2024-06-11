@@ -294,6 +294,8 @@ Version 2016-06-15"
    (kmacro-lambda-form [?c ?\\ ?u ?n ?d ?e ?r ?b ?r ?a ?c ?e ?\{ ?\C-r ?\" ?\} ?\_ ?{ ?} ?\C-b] 0 "%d"))
 (fset 'find-string
    (kmacro-lambda-form [escape ?y ?i ?\" ?\\ ?\C-r ?\" return] 0 "%d"))
+(fset 'split-on-comma
+   (kmacro-lambda-form [?: ?s ?/ ?, ?/ ?, ?\\ ?n ?/ ?g return ?f ?\) ?i return escape escape ?% ?a return escape ?V ?\} ?= ?\} ?: ?w return] 0 "%d"))
 
 ;; Keybindings
 (with-eval-after-load 'python
@@ -316,6 +318,7 @@ Version 2016-06-15"
   (define-key python-mode-map (kbd "C-c a") 'python-argument)
   (define-key python-mode-map (kbd "C-c q") 'chatgpt-query)
   (define-key python-mode-map (kbd "C-c \"") 'find-string)
+  (define-key python-mode-map (kbd "C-c ,") 'split-on-comma)
 )
 (with-eval-after-load 'comint
   (define-key comint-mode-map (kbd "C-c r") 'range)
@@ -493,6 +496,8 @@ Version 2016-06-15"
     (setq-local lsp-enable-folding t
                 lsp-folding-range-limit 100)))
 
+(add-hook! 'rust-mode-hook 'lsp-deferred)
+
 ;; LaTeX config
 (setq org-latex-listings 'minted
       org-latex-packages-alist '(("" "minted"))
@@ -511,6 +516,7 @@ Version 2016-06-15"
 ;; TeX Pdf
 (setq TeX-PDF-mode t)
 (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+(setq doc-view-continuous t)
 (pdf-loader-install)
 
 (print exec-path)
@@ -986,15 +992,6 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
           (when matching-files
             (find-file (car matching-files))
             (setq-local remote-file-name (format tramp-path server))))))))
-
-;; (defil TYPE START-DELIM END-DELIM TEXT-REGEXP LINK-EXPR &optional
-;; START-REGEXP-FLAG END-REGEXP-FLAG DOC)
-;; manual: https://www.gnu.org/software/hyperbole/man/hyperbole.pdf
-(require 'hyperbole)
-(defil my-ssh-open-file-button " " "" "[:digit:]*" '(lambda (x) (my-ssh-and-open-file x)))
-(defil wandb-code-button " " "" "[:alnum:]*[a-z][:alnum:]*" '(lambda (x)
-                                               (browse-url
-                                                (format "https://wandb.ai/iai/itra/runs/%s" x))))
 
 (defun find-longest-substring (delimiter)
   "Search for the longest substring between two instances of DELIMITER on the current line and perform an Evil search with the longest substring as the search pattern."
