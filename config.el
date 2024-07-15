@@ -549,6 +549,7 @@ Version 2016-06-15"
                         "#+LATEX_HEADER: \\usepackage{bbm}\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsthm}\n\n"
                         "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n\n"))
+                        "* Provenance\n\n"
          :unnarrowed t)
         ("r" "Research" plain
          "%?"
@@ -561,6 +562,7 @@ Version 2016-06-15"
                         "#+LATEX_HEADER: \\usepackage{bbm}\n\n"
                         "#+LATEX_HEADER: \\usepackage{amsthm}\n\n"
                         "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n\n"
+                        "* Provenance\n\n"
                         "* Definitions and Valuable Terminology\n\n"
                         "* Notes"))
          :unnarrowed t)
@@ -602,6 +604,7 @@ Version 2016-06-15"
                         "#+LATEX_HEADER: \\usepackage{amsfonts}\n"
                         "#+LATEX_HEADER: \\usepackage{physics}\n\n"
                         "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n"
+                        "* Provenance\n\n"
                         "* Title\n"))
          :unnarrowed t)
         ("b" "Beamer" plain
@@ -656,7 +659,7 @@ Version 2016-06-15"
 (setq org-roam-dailies-directory dailies-directory)
 (setq org-roam-dailies-capture-templates
       '(("d" "Daily" entry "* %<%I:%M %p>: %?"
-         :if-new (file+head "%<%Y-%m-%d>.org" "#+TITLE: %<%Y-%m-%d>\n"))))
+         :if-new (file+head "%<%Y-%m-%d>.org" "#+TITLE: %<%Y-%m-%d>\n#+OPTIONS: broken-links:t toc:nil\n"))))
 (org-roam-setup)
 
 ; Deft note-taking
