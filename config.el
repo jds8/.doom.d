@@ -563,7 +563,7 @@ Version 2016-06-15"
                         "#+LATEX_HEADER: \\usepackage{amsthm}\n\n"
                         "#+LATEX_HEADER: \\setlength{\\parindent}{0pt}\n\n"
                         "* Provenance\n\n"
-                        "* Definitions and Valuable Terminology\n\n"
+                        "* Examples\n\n"
                         "* Notes"))
          :unnarrowed t)
         ("c" "Class" plain
