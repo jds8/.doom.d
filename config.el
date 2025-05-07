@@ -1031,3 +1031,51 @@ This one changes the cursor color on each blink. Define colors in `blink-cursor-
     (evil-search (format "\\<%s\\>" (regexp-quote last-word)) 2 t))
   (evil-search-next)
   )
+
+;; Add semantic links for org-roam
+(org-link-set-parameters
+ "implies"
+ :follow (lambda (path) (org-open-link-from-string (concat "[[roam:" path "]]")))
+ :export (lambda (path desc backend)
+           (cond ((eq backend 'html) (format "<a href=\"%s\">%s</a>" path (or desc path)))
+                 ((eq backend 'latex) (format "\\href{%s}{%s}" path (or desc path)))))
+ :face '(:foreground "orchid" :weight bold :underline t))
+(org-link-set-parameters
+ "is-a"
+ :follow (lambda (path) (org-open-link-from-string (concat "[[roam:" path "]]")))
+ :export (lambda (path desc backend)
+           (cond ((eq backend 'html) (format "<a href=\"%s\">%s</a>" path (or desc path)))
+                 ((eq backend 'latex) (format "\\href{%s}{%s}" path (or desc path)))))
+ :face '(:foreground "orchid" :weight bold :underline t))
+(org-link-set-parameters
+ "generalizes"
+ :follow (lambda (path) (org-open-link-from-string (concat "[[roam:" path "]]")))
+ :export (lambda (path desc backend)
+           (cond ((eq backend 'html) (format "<a href=\"%s\">%s</a>" path (or desc path)))
+                 ((eq backend 'latex) (format "\\href{%s}{%s}" path (or desc path)))))
+ :face '(:foreground "orchid" :weight bold :underline t))
+(org-link-set-parameters
+ "solves"
+ :follow (lambda (path) (org-open-link-from-string (concat "[[roam:" path "]]")))
+ :export (lambda (path desc backend)
+           (cond ((eq backend 'html) (format "<a href=\"%s\">%s</a>" path (or desc path)))
+                 ((eq backend 'latex) (format "\\href{%s}{%s}" path (or desc path)))))
+ :face '(:foreground "orchid" :weight bold :underline t))
+(org-link-set-parameters
+ "depends-on"
+ :follow (lambda (path) (org-open-link-from-string (concat "[[roam:" path "]]")))
+ :export (lambda (path desc backend)
+           (cond ((eq backend 'html) (format "<a href=\"%s\">%s</a>" path (or desc path)))
+                 ((eq backend 'latex) (format "\\href{%s}{%s}" path (or desc path)))))
+ :face '(:foreground "orchid" :weight bold :underline t))
+;; extract links from org-oram
+(org-roam-db-query
+ [:select [source:title dest:title links:type links:pos links:properties]
+          :from links
+          :left-join nodes :as source :on (= links:source source:id)
+          :left-join nodes :as dest :on (= links:dest dest:id)
+          :where (not (= links:type "id"))])
+;; extract nodes from org-oram
+(org-roam-db-query
+ [:select [nodes:id nodes:title nodes:file]
+          :from nodes])
