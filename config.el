@@ -659,7 +659,8 @@ Version 2016-06-15"
 (setq org-roam-dailies-directory dailies-directory)
 (setq org-roam-dailies-capture-templates
       '(("d" "Daily" entry "* %<%I:%M %p>: %?"
-         :if-new (file+head "%<%Y-%m-%d>.org" "#+TITLE: %<%Y-%m-%d>\n#+OPTIONS: broken-links:t toc:nil\n"))))
+         :if-new (file+head "%<%Y-%m-%d>.org"
+                 "#+TITLE: %<%Y-%m-%d>\n#+OPTIONS: broken-links:t toc:nil\n\n* Today's Conjecture\n\n* Today's Refutation\n"))))
 (org-roam-setup)
 
 ; Deft note-taking
